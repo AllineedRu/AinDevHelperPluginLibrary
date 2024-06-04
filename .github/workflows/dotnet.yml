@@ -21,6 +21,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Install dependencies
+      run: dotnet add package CodegenCS.Core --version 3.4.0.0
     #- name: Setup .NET ${{ matrix.dotnet-version }}
     #  uses: actions/setup-dotnet@v4
     #  with:
