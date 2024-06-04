@@ -2,8 +2,8 @@
 
 ![.NET worflow status badge](https://github.com/AllineedRu/AinDevHelperPluginLibrary/actions/workflows/dotnet.yml/badge.svg?branch=master)
 
-Вы просматриваете версию данного README на русском языке.
+Р’С‹ РїСЂРѕСЃРјР°С‚СЂРёРІР°РµС‚Рµ РІРµСЂСЃРёСЋ РґР°РЅРЅРѕРіРѕ README РЅР° СЂСѓСЃСЃРєРѕРј СЏР·С‹РєРµ.
 
-Вы также можете читать данное руководство на других языках: [English](README.md) | [Немецкий](README-de.md)
+Р’С‹ С‚Р°РєР¶Рµ РјРѕР¶РµС‚Рµ С‡РёС‚Р°С‚СЊ РґР°РЅРЅРѕРµ СЂСѓРєРѕРІРѕРґСЃС‚РІРѕ РЅР° РґСЂСѓРіРёС… СЏР·С‹РєР°С…: [English](README.md) | [РќРµРјРµС†РєРёР№](README-de.md)
 
-Тест
+РўРµСЃС‚
