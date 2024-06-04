@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{37AB27D6-D34C-4B94-9581-B10E46B34426}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AinDevHelperPluginLibrary</RootNamespace>
+    <AssemblyName>AinDevHelperPluginLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CodegenCS.Core, Version=3.4.0.0, Culture=neutral, PublicKeyToken=602c64961bdc076c, processorArchitecture=MSIL">
+      <HintPath>..\AinDevHelper\packages\CodegenCS.Core.3.4.0\lib\net472\CodegenCS.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\AinDevHelperPluginActionCoreTagsConstants.cs" />
+    <Compile Include="Actions\AinDevHelperPluginGenerationAction.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperDropDownListValue.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionCheckBoxParameter.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionDirectorySelectionParameter.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionDropDownListParameter.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionFileSelectionParameter.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionMultipleCheckBoxesParameter.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionOneOfMultipleSelectionParameter.cs" />
+    <Compile Include="AinCommandLineHelper.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperDropDownListIntegerValue.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperDropDownListStringValue.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperPluginActionCheckBoxParameterDescriptor.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperPluginActionDirectorySelectionParameterDescriptor.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperPluginActionDropDownListParameterDescriptor.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperPluginActionFileSelectionParameterDescriptor.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperDropDownListValue.cs" />
+    <Compile Include="Language\AinDevHelperLanguage.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionParameter.cs" />
+    <Compile Include="Actions\Parameters\AinDevHelperPluginActionTextParameter.cs" />
+    <Compile Include="Language\AinDevHelperLanguageCodeConstants.cs" />
+    <Compile Include="Language\AinDevHelperLanguageManager.cs" />
+    <Compile Include="DescriptorBasedStandardDevHelperPlugin.cs" />
+    <Compile Include="Descriptor\ActionKind\AinDevHelperPerformedActionKind.cs" />
+    <Compile Include="Descriptor\ActionKind\AinDevHelperPerformedActionKindRunProcess.cs" />
+    <Compile Include="Descriptor\Action\AinDevHelperPluginActionDescriptor.cs" />
+    <Compile Include="Descriptor\ActionParameter\AinDevHelperPluginActionParameterDescriptor.cs" />
+    <Compile Include="Descriptor\Action\Result\AinDevHelperPluginActionResultMessageDescriptor.cs" />
+    <Compile Include="Descriptor\AinDevHelperPluginDescriptor.cs" />
+    <Compile Include="Actions\AinDevHelperPluginParameterizedAction.cs" />
+    <Compile Include="Actions\AinDevHelperPluginWebLinkAction.cs" />
+    <Compile Include="Settings\Controls\AinDevHelperSettingRadioButtonGroup.cs" />
+    <Compile Include="Settings\Controls\AinDevHelperSettingBaseControl.cs" />
+    <Compile Include="Settings\Controls\AinDevHelperSettingCheckBoxesControl.cs" />
+    <Compile Include="Settings\Controls\AinDevHelperSettingRadioButtonsControl.cs" />
+    <Compile Include="Actions\AinDevHelperPluginAction.cs" />
+    <Compile Include="AinDevHelperPluginActionResult.cs" />
+    <Compile Include="Settings\AinDevHelperPluginSettings.cs" />
+    <Compile Include="Settings\Controls\AinDevHelperSettingTextBoxControl.cs" />
+    <Compile Include="Settings\AinDevHelperSettingTextValue.cs" />
+    <Compile Include="Descriptor\ActionParameter\Type\AinDevHelperPluginActionTextParameterDescriptor.cs" />
+    <Compile Include="Descriptor\Action\AinDevHelperPluginGenerationActionDescriptor.cs" />
+    <Compile Include="Descriptor\Action\AinDevHelperPluginNoParamsActionDescriptor.cs" />
+    <Compile Include="Descriptor\Action\AinDevHelperPluginParameterizedActionDescriptor.cs" />
+    <Compile Include="Descriptor\Action\AinDevHelperPluginWebLinkActionDescriptor.cs" />
+    <Compile Include="Global\AinDevHelperGlobalConfig.cs" />
+    <Compile Include="IAinDevHelperPlugin.cs" />
+    <Compile Include="IAinDevHelperPluginHost.cs" />
+    <Compile Include="IAinDevHelperQuickActionPlugin.cs" />
+    <Compile Include="Settings\IAinDevHelperSettingControl.cs" />
+    <Compile Include="Settings\IAinDevHelperSettingControlValue.cs" />
+    <Compile Include="Settings\IAinDevHelperSettingTextControl.cs" />
+    <Compile Include="IDE\AinDevHelperFavouriteIDE.cs" />
+    <Compile Include="IDE\AinDevHelperFavouriteIDEsConfiguration.cs" />
+    <Compile Include="IDE\AinDevHelperFavouriteIDEsManager.cs" />
+    <Compile Include="Language\AinDevHelperLocalizedMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StandardAinDevHelperPlugin.cs" />
+    <Compile Include="Tools\AinDevHelperFavouriteTool.cs" />
+    <Compile Include="Tools\AinDevHelperFavouriteToolsConfiguration.cs" />
+    <Compile Include="Tools\AinDevHelperFavouriteToolsManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
