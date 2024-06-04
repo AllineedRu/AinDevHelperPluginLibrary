@@ -1,7 +1,8 @@
 # AinDevHelperPluginLibrary
 
 ![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
-![test](https://github.com/AllineedRu/AinDevHelperPluginLibrary/blob/master/.github/workflows/dotnet.yml/badge.svg?branch=master)
+![test2](https://github.com/AllineedRu/AinDevHelperPluginLibrary/actions/workflows/main.yml/badge.svg?branch=master)
+![test3](https://github.com/AllineedRu/AinDevHelperPluginLibrary/actions/workflows/dotnet.yml/badge.svg?branch=master)
 
 You are viewing the English version of this README.
 
