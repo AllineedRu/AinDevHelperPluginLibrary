@@ -1,6 +1,6 @@
 # AinDevHelperPluginLibrary
 
-![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![.NET worflow status badge](https://github.com/AllineedRu/AinDevHelperPluginLibrary/actions/workflows/dotnet.yml/badge.svg?branch=master)
 
 Sie sehen die englische Version dieser README-Datei.
 
