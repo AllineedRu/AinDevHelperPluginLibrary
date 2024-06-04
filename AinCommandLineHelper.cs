@@ -1,9 +1,22 @@
-﻿using System;
+﻿/*
+Copyright 2024 Allineed.Ru, Max Damascus
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+and associated documentation files (the "Software"), to deal in the Software without restriction, 
+including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+using System;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 
 namespace AinDevHelperPluginLibrary {
     /// <summary>
@@ -97,123 +110,5 @@ namespace AinDevHelperPluginLibrary {
         public static int RunProcessWithWindowAsAdmin(string fileName) {
             return RunProcessWithWindowAsAdmin(fileName, null);
         }
-
-        //public static void RunCmdCommand(string arguments, DataReceivedEventHandler outputDataReceived, DataReceivedEventHandler errorDataReceived) {
-        //    ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd", arguments);
-                       
-        //    processStartInfo.RedirectStandardOutput = true;
-        //    processStartInfo.RedirectStandardError = true;
-        //    processStartInfo.UseShellExecute = false;
-        //    processStartInfo.CreateNoWindow = true;
-        //    processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-        //    Process process = new Process();
-        //    process.StartInfo = processStartInfo;
-
-        //    process.EnableRaisingEvents = true;
-        //    process.OutputDataReceived += outputDataReceived; //new DataReceivedEventHandler(Process_OutputDataReceived);
-        //    process.ErrorDataReceived += errorDataReceived;// new DataReceivedEventHandler(Process_ErrorDataReceived);
-
-        //    //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-        //    //process.StartInfo.FileName = "java.exe";
-        //    //process.StartInfo.Arguments = "-version";
-        //    //process.StartInfo.Arguments = "/C " + command;
-        //    //process.StartInfo.UseShellExecute = false;
-        //    //process.StartInfo.CreateNoWindow = true;
-        //    //process.StartInfo.RedirectStandardOutput = true;            
-        //    //process.StartInfo.RedirectStandardInput = true;
-
-            
-        //    //process.OutputDataReceived += Process_OutputDataReceived;
-
-        //    Console.WriteLine("!!! Запускаю процесс...: " + process.ToString());
-        //    process.Start();
-        //    process.BeginOutputReadLine();
-        //    process.BeginErrorReadLine();
-
-        //    //Console.WriteLine("После process.Start()!");
-
-
-        //    //Console.WriteLine("Ждём 4 секунды.");
-        //    //Thread.Sleep(4000);
-        //    //Console.WriteLine("Считываю: string output = process.StandardOutput.ReadToEnd()");
-
-        //    //process.StandardOutput.BaseStream.
-        //    //string output = process.StandardOutput.ReadToEnd();
-
-
-
-        //    //process.BeginOutputReadLine();
-        //    //Console.WriteLine("output = ");
-        //    // Console.WriteLine(output);
-        //    //process.StandardInput.WriteLine("java -version");
-        //    //process.StandardInput.Flush();
-        //    //process.StandardInput.Close();
-
-        //    //string output = "";
-        //    //while (!process.HasExited) {
-        //    //Console.WriteLine("пока !process.HasExited: ");
-        //    //output += process.StandardOutput.ReadToEnd();
-        //    //Console.WriteLine("output: " + output);
-        //    //process.StandardOutput.Close();
-        //    ///process.StandardInput.WriteLine(command);
-        //    ///process.StandardInput.Flush();
-        //    ///process.StandardInput.Close();
-
-        //    //Console.WriteLine("Жду завершения процесса...");
-        //    process.WaitForExit();
-        //    //Console.WriteLine("Завершено.");
-        //    //StringBuilder sbOutput = new StringBuilder();
-
-
-        //    //}
-
-
-
-
-        //    //Console.WriteLine("Возврат из метода output: " + output);
-        //    //return sbOutput.ToString();
-        //    //return output;
-        //    //return processOutputData;
-        //}
-        //static void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e) {
-        //    processOutputData = e.Data;
-        //}
-        //static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e) {
-        //    processOutputData = e.Data;
-        //}
-
-        //private static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e) {
-        //    Console.WriteLine("Called Process_OutputDataReceived!");
-        //    Console.WriteLine("e.Data = " + e.Data);
-        //    data += e.Data;
-        //}
-
-        //public static string GetProgramVersion(string currentStartupPath, string programName, string args, bool useShellExecute) {
-        //    try {
-        //        var proc = new Process {
-        //            StartInfo = {
-        //                FileName = programName,
-        //                WorkingDirectory = currentStartupPath,
-        //                Arguments = args,
-        //                UseShellExecute = useShellExecute,
-        //                RedirectStandardOutput = true,
-        //                CreateNoWindow = true
-        //            }
-        //        };
-
-        //        proc.Start();
-
-        //        StringBuilder sbOutput = new StringBuilder();
-        //        sbOutput.Append(proc.StandardOutput.ReadToEnd());
-        //        proc.WaitForExit();
-        //        //while (!proc.StandardOutput.EndOfStream) {
-        //        //    sbOutput.Append(proc.StandardOutput.ReadLine());                    
-        //        //}
-        //        return sbOutput.ToString();
-        //    } catch (Exception e) {
-        //        return "Ошибка: " + e.Message;
-        //    }
-        //}
     }
 }

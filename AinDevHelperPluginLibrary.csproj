@@ -34,9 +34,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodegenCS.Core, Version=3.4.0.0, Culture=neutral, PublicKeyToken=602c64961bdc076c, processorArchitecture=MSIL">
-      <HintPath>..\AinDevHelper\packages\CodegenCS.Core.3.4.0\lib\net472\CodegenCS.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
