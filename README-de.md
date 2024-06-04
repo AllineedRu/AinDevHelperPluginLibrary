@@ -1,9 +1,7 @@
 # AinDevHelperPluginLibrary
 
-![Buildstatus](https://github.com/AllineedRu/AinDevHelperPluginLibrary/.github/workflows/dotnet.yml/badge.svg)
+![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
 
-Sie sehen sich die deutsche Version dieser README-Datei an.
+Sie sehen die englische Version dieser README-Datei.
 
-Lesen Sie dieses Handbuch in anderen Sprachen: [English](README.md) | [–ÛÒÒÍËÈ](README-ru.md)
-
-Test
+Sie k√∂nnen dieses Handbuch auch in anderen Sprachen lesen: [–†—É—Å—Å–∫–∏–π](README-ru.md) | [English](README.md)
