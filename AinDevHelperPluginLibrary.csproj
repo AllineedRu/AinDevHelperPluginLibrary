@@ -107,7 +107,13 @@
     <Compile Include="Tools\AinDevHelperFavouriteToolsManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\drawio\principle-of-work-1-en.drawio" />
+    <None Include="docs\drawio\principle-of-work-1-ru.drawio" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="docs\images\principle-of-work-1-en.drawio.png" />
+    <Content Include="docs\images\principle-of-work-1-ru.drawio.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
