@@ -3,9 +3,9 @@
 ![.NET worflow status badge](https://github.com/AllineedRu/AinDevHelperPluginLibrary/actions/workflows/dotnet.yml/badge.svg?branch=master)
 ![version Pre-Alpha](https://img.shields.io/badge/version-Pre--Alpha-red)
 
-You are viewing the English version of this README.
-
-You can also read this manual in other languages: 
+* **[Русский]** Вы просматриваете версию данного README на английском языке. Вы также можете читать данное руководство на других языках.
+* **[English]** You are viewing the English version of this README. You can also read this manual in other languages.
+* **[Deutsch]** Sie sehen sich die englische Version dieser README-Datei an. Sie können dieses Handbuch auch in anderen Sprachen lesen.
 
 [Русский](README-ru.md) | [German](README-de.md)
 

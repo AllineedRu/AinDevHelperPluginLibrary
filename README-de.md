@@ -34,4 +34,4 @@ Nachfolgend finden Sie eine schematische Darstellung des Grundprinzips der Funkt
 * *Eine Reihe von Plugins*, die von der AinDevHelper-Anwendung unterstützt werden und mit ihr kompatibel sind – durch die Implementierung der von der AinDevHelperPluginLibrary-Bibliothek bereitgestellten API
 
 
-![Принцип работы библиотеки](docs/images/principle-of-work-1-ru.drawio.png)
+![Принцип работы библиотеки](docs/images/principle-of-work-1-de.drawio.png)
