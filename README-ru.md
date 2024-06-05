@@ -3,9 +3,11 @@
 ![.NET worflow status badge](https://github.com/AllineedRu/AinDevHelperPluginLibrary/actions/workflows/dotnet.yml/badge.svg?branch=master)
 ![version Pre-Alpha](https://img.shields.io/badge/version-Pre--Alpha-red)
 
-Вы просматриваете версию данного README на русском языке.
+* **[Русский]** Вы просматриваете версию данного README на русском языке. Вы также можете читать данное руководство на других языках.
+* **[English]** You are viewing the Russian version of this README. You can also read this manual in other languages.
+* **[Deutsch]** Sie sehen sich die russische Version dieser README-Datei an. Sie können dieses Handbuch auch in anderen Sprachen lesen.
 
-Вы также можете читать данное руководство на других языках: [English](README.md) | [Немецкий](README-de.md)
+[English](README.md) | [Deutsch](README-de.md)
 
 ## Что такое AinDevHelperPluginLibrary?
 
