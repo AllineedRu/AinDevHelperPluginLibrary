@@ -15,9 +15,11 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+using System;
+using System.Collections.Generic;
 using AinDevHelperPluginLibrary.Actions;
 using AinDevHelperPluginLibrary.Language;
-using System.Collections.Generic;
+using static AinDevHelperPluginLibrary.Language.AinDevHelperLanguageCodeConstants;
 
 namespace AinDevHelperPluginLibrary {
     /// <summary>
@@ -106,8 +108,12 @@ namespace AinDevHelperPluginLibrary {
                 IsRefreshPluginActions = isRefreshPluginActions;            
         }
 
-        public AinDevHelperPluginActionResult(IAinDevHelperPlugin plugin, AinDevHelperPluginAction action, ActionResultReturnCode returnCode, string resultMessage, params (string languageCode, string localizedResultMessage)[] localizedResultMessages) {
+        public AinDevHelperPluginActionResult(IAinDevHelperPlugin plugin, AinDevHelperPluginAction action, ActionResultReturnCode returnCode, string resultMessage, params (string languageCode, string localizedResultMessage)[] localizedResultMessages) : this(plugin, action, returnCode, resultMessage, false, localizedResultMessages) {
+        }
+
+        public AinDevHelperPluginActionResult(IAinDevHelperPlugin plugin, AinDevHelperPluginAction action, ActionResultReturnCode returnCode, string resultMessage, bool isRefreshPluginActions, params (string languageCode, string localizedResultMessage)[] localizedResultMessages) {
             ReturnCode = returnCode;
+            IsRefreshPluginActions = isRefreshPluginActions;
             switch (returnCode) {
                 case ActionResultReturnCode.ActionExecutedSuccessfully:
                     SuccessMessage = resultMessage;
@@ -115,7 +121,7 @@ namespace AinDevHelperPluginLibrary {
                 case ActionResultReturnCode.PluginFailedToExecuteAction:
                     ErrorMessage = resultMessage;
                     break;
-            }            
+            }
             Plugin = plugin;
             PluginAction = action;
             if (localizedResultMessages != null) {
@@ -127,7 +133,7 @@ namespace AinDevHelperPluginLibrary {
                         case ActionResultReturnCode.PluginFailedToExecuteAction:
                             LocalizedErrorMessages.Add(new AinDevHelperLocalizedMessage(langCode, localizedResultMessage));
                             break;
-                    }                    
+                    }
                 }
             }
         }

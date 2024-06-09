@@ -18,12 +18,10 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using AinDevHelperPluginLibrary.Actions;
 using AinDevHelperPluginLibrary.Language;
+using static AinDevHelperPluginLibrary.Language.AinDevHelperLanguageCodeConstants;
 
 namespace AinDevHelperPluginLibrary {
     /// <summary>
@@ -93,6 +91,69 @@ namespace AinDevHelperPluginLibrary {
                 localizedErrorMessages
             );
         }
+
+        public AinDevHelperPluginActionResult GetErroneousResponseActionNotRecognized(AinDevHelperPluginAction actionToRun) {
+            return GetErroneousResponse(
+                actionToRun,
+                $"Ошибка при выполнении действия плагина. Действие не распознано. Убедитесь, что со стороны плагина есть соответствующий код для обработки действия '{actionToRun.Name}' и возврата результата по данному действию.",
+                (EN, $"An error occurred while executing the plugin action. Action not recognized. Make sure that the plugin has the appropriate code to handle the '{actionToRun.Name}' action and return the result for that action."),
+                (DE, $"Beim Ausführen der Plugin-Aktion ist ein Fehler aufgetreten. Aktion nicht erkannt. Stellen Sie sicher, dass das Plugin über den entsprechenden Code verfügt, um die Aktion „{actionToRun.Name}“ zu verarbeiten und das Ergebnis für diese Aktion zurückzugeben.")
+            ); ;
+        }
+
+        public AinDevHelperPluginActionResult GetErroneousResponseDirectoryWasNotFound(AinDevHelperPluginAction actionToRun, string notFoundDirectoryName) {
+            string directoryName = string.IsNullOrEmpty(notFoundDirectoryName) ? "" : notFoundDirectoryName;
+
+            return GetErroneousResponse(
+                actionToRun, 
+                $"Ошибка при выполнении действия плагина. Директория '{directoryName}' не существует в файловой системе. Проверьте корректность пути.",
+                (EN, $"An error occurred while executing the plugin action. Directory '{directoryName}' does not exist in the file system. Check that the path is correct."),
+                (DE, $"Beim Ausführen der Plugin-Aktion ist ein Fehler aufgetreten. Das Verzeichnis „{directoryName}“ ist im Dateisystem nicht vorhanden. Überprüfen Sie, ob der Pfad korrekt ist.")
+                );
+        }
+
+        public AinDevHelperPluginActionResult GetSuccessfulResponseWebLinkAction(AinDevHelperPluginAction actionToRun, AinDevHelperPluginWebLinkAction webLinkAction) {
+            return new AinDevHelperPluginActionResult(
+                this,
+                actionToRun,
+                $"Действие '{webLinkAction.Name}' успешно выполнено. Страница '{webLinkAction.WebLink}' открыта в браузере по умолчанию.",
+                (EN, $"Action '{webLinkAction.Name}' completed successfully. The '{webLinkAction.WebLink}' page is opened in the default browser."),
+                (DE, $"Aktion „{webLinkAction.Name}“ erfolgreich abgeschlossen. Die Seite „{webLinkAction.WebLink}“ wird im Standardbrowser geöffnet.")
+            );
+        }
+
+        public AinDevHelperPluginActionResult GetErroneousResponseFileWasNotFound(AinDevHelperPluginAction actionToRun, string notFoundFileName) {
+            string fileName = string.IsNullOrEmpty(notFoundFileName) ? "" : notFoundFileName;
+
+            return GetErroneousResponse(
+                actionToRun,
+                $"Ошибка при выполнении действия плагина. Файл '{fileName}' не был найден, хотя ожидалось, что он существует.",
+                (EN, $"An error occurred while executing the plugin action. The file '{fileName}' was not found although it was expected to exist."),
+                (DE, $"Beim Ausführen der Plugin-Aktion ist ein Fehler aufgetreten. Die Datei „{fileName}“ wurde nicht gefunden, obwohl erwartet wurde, dass sie vorhanden ist.")
+            );
+        }
+
+        public AinDevHelperPluginActionResult GetErroneousResponseForException(AinDevHelperPluginAction actionToRun, Exception exception) {            
+            return new AinDevHelperPluginActionResult(
+                this,
+                actionToRun,
+                AinDevHelperPluginActionResult.ActionResultReturnCode.PluginFailedToExecuteAction,
+                $"Произошло исключение при выполнении действия плагина.\r\nСообщение ошибки: {exception.Message}.\r\n\r\nТрассировка стека:\r\n{exception.StackTrace}",
+                (EN, $"An exception occurred while executing a plugin action.\r\nError message: {exception.Message}.\r\n\r\nStack trace:\r\n{exception.StackTrace}"),
+                (DE, $"Beim Ausführen einer Plugin-Aktion ist eine Ausnahme aufgetreten.\r\nFehlermeldung: {exception.Message}.\r\n\r\nStacktrace:\r\n{exception.StackTrace}")
+            );
+        }
+
+        public AinDevHelperPluginActionResult GetErroneousResponseExpectedParameterizedAction(AinDevHelperPluginAction actionToRun) {
+            return new AinDevHelperPluginActionResult(
+                this,
+                actionToRun,
+                "Ошибка при выполнении действия плагина. Действие не является экземпляром класса AinDevHelperPluginParameterizedAction.",
+                (EN, "An error occurred while executing the plugin action. The action is not an instance of the AinDevHelperPluginParameterizedAction class."),
+                (DE, "Beim Ausführen der Plugin-Aktion ist ein Fehler aufgetreten. Die Aktion ist keine Instanz der AinDevHelperPluginParameterizedAction-Klasse.")
+            );
+        }
+
 
         /// <summary>
         /// [RU] Метод сохраняет текущие настройки плагина<br/>
