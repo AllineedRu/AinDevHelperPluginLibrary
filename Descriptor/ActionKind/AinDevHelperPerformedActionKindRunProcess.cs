@@ -18,7 +18,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AinDevHelperPluginLibrary.Descriptor {
+namespace AinDevHelperPluginLibrary.Descriptor.ActionKind {
     public class AinDevHelperPerformedActionKindRunProcess : AinDevHelperPerformedActionKind {
         //[XmlAttribute]
         public string Command { get; set; }

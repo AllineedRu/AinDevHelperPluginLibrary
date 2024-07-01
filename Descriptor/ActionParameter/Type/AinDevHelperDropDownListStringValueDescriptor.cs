@@ -16,15 +16,10 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AinDevHelperPluginLibrary {
-    public interface IAinDevHelperSettingControlValue {
-        public string CurrentValue { get; set; }
-
-        public void AddValue(string value);
+namespace AinDevHelperPluginLibrary.Descriptor.ActionParameter.Type {
+    [Serializable]
+    public class AinDevHelperDropDownListStringValueDescriptor : AinDevHelperDropDownListValueDescriptor {
+        public string Value { get; set; }
     }
 }

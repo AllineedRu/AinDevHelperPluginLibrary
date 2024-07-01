@@ -45,7 +45,13 @@ namespace AinDevHelperPluginLibrary.Language {
         /// [RU] Список закешированных языков. Обновляется каждый раз при повторном вызове метода <see cref="LoadAvailableLanguages"/><br/>
         /// [EN] List of cached languages. Updated every time the <see cref="LoadAvailableLanguages"/> method is called again
         /// </summary>
-        private readonly List<AinDevHelperLanguage> CachedLanguages = new List<AinDevHelperLanguage>();
+        public readonly List<AinDevHelperLanguage> CachedLanguages = new List<AinDevHelperLanguage>();
+
+        public bool HasCachedLanguages { 
+            get {
+                return CachedLanguages.Count > 0;
+            } 
+        }
 
         AinDevHelperLanguageManager() { }
 

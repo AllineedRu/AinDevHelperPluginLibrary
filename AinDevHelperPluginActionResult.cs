@@ -15,11 +15,9 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
 using System.Collections.Generic;
 using AinDevHelperPluginLibrary.Actions;
 using AinDevHelperPluginLibrary.Language;
-using static AinDevHelperPluginLibrary.Language.AinDevHelperLanguageCodeConstants;
 
 namespace AinDevHelperPluginLibrary {
     /// <summary>
@@ -51,9 +49,16 @@ namespace AinDevHelperPluginLibrary {
         /// </summary>
         public string ErrorMessage { get; set; }
 
-
+        /// <summary>
+        /// [RU] Набор локализованных сообщений об ошибке, возникшей при выполнении действия плагина<br/>
+        /// [EN] A set of localized error messages that occurred when executing a plugin action
+        /// </summary>
         public virtual HashSet<AinDevHelperLocalizedMessage> LocalizedErrorMessages { get; set; } = new HashSet<AinDevHelperLocalizedMessage>();
 
+        /// <summary>
+        /// [RU] Набор локализованных сообщений об успешном выполнении действия плагина<br/>
+        /// [EN] A set of localized messages about the successful completion of a plugin action
+        /// </summary>
         public virtual HashSet<AinDevHelperLocalizedMessage> LocalizedSuccessMessages { get; set; } = new HashSet<AinDevHelperLocalizedMessage>();
 
         /// <summary>

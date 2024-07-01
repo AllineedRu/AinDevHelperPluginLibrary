@@ -15,6 +15,7 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+using AinDevHelperPluginLibrary.Settings.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +27,13 @@ namespace AinDevHelperPluginLibrary {
     /// </summary>
     [Serializable]
     [XmlInclude(typeof(AinDevHelperSettingBaseControl))]
+    [XmlInclude(typeof(AinDevHelperSettingControlWithLabel))]    
+    [XmlInclude(typeof(AinDevHelperSettingDirectorySelectionControl))]
+    [XmlInclude(typeof(AinDevHelperSettingFileSelectionControl))]
     [XmlInclude(typeof(AinDevHelperSettingTextBoxControl))]
-    [XmlInclude(typeof(AinDevHelperSettingCheckBoxesControl))]
-    [XmlInclude(typeof(AinDevHelperSettingRadioButtonsControl))]
-    [XmlInclude(typeof(AinDevHelperSettingRadioButtonGroup))]    
+    [XmlInclude(typeof(AinDevHelperSettingCheckBoxControl))]
+    [XmlInclude(typeof(AinDevHelperSettingRadioButtonGroupControl))]
+    [XmlInclude(typeof(AinDevHelperRadioButtonElement))]    
     public class AinDevHelperPluginSettings {
         /// <summary>
         /// Список элементов управления, которые будут отображаться на странице настроек плагина
@@ -50,7 +54,7 @@ namespace AinDevHelperPluginLibrary {
         /// <typeparam name="T"></typeparam>
         /// <param name="type"></param>
         /// <returns></returns>
-        public IEnumerable<T> GetSettingControlsOfType<T>(T type) where T : AinDevHelperSettingBaseControl {
+        public IEnumerable<T> GetSettingControlsOfType<T>() where T : AinDevHelperSettingBaseControl {
             return SettingControls.OfType<T>();
         }
 
@@ -60,7 +64,7 @@ namespace AinDevHelperPluginLibrary {
         /// <param name="name"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public IAinDevHelperSettingControl GetControlByNameOrNull(string name) {
+        public AinDevHelperSettingBaseControl GetControlByNameOrNull(string name) {
             if (name == null) {
                 throw new ArgumentNullException("name", "Параметр не может быть равен null");
             }
@@ -70,6 +74,66 @@ namespace AinDevHelperPluginLibrary {
             }
 
             return null;
-        }        
+        }
+
+        public AinDevHelperSettingCheckBoxControl GetCheckBoxControlByNameOrNull(string name) {
+            if (name == null) {
+                throw new ArgumentNullException("name", "Параметр не может быть равен null");
+            }
+            if (SettingControls.Any(control => name.Equals(control.Name))) {
+                AinDevHelperSettingBaseControl foundControl = SettingControls.First(control => name.Equals(control.Name));
+                return foundControl is AinDevHelperSettingCheckBoxControl checkBoxControl ? checkBoxControl : null;
+            }
+
+            return null;
+        }
+
+        public AinDevHelperSettingFileSelectionControl GetFileSelectionControlByNameOrNull(string name) {
+            if (name == null) {
+                throw new ArgumentNullException("name", "Параметр не может быть равен null");
+            }
+            if (SettingControls.Any(control => name.Equals(control.Name))) {
+                AinDevHelperSettingBaseControl foundControl = SettingControls.First(control => name.Equals(control.Name));
+                return foundControl is AinDevHelperSettingFileSelectionControl fileSelectionControl ? fileSelectionControl : null;
+            }
+
+            return null;
+        }
+
+        public AinDevHelperSettingDirectorySelectionControl GetDirectorySelectionControlByNameOrNull(string name) {
+            if (name == null) {
+                throw new ArgumentNullException("name", "Параметр не может быть равен null");
+            }
+            if (SettingControls.Any(control => name.Equals(control.Name))) {
+                AinDevHelperSettingBaseControl foundControl = SettingControls.First(control => name.Equals(control.Name));
+                return foundControl is AinDevHelperSettingDirectorySelectionControl directorySelectionControl ? directorySelectionControl : null;
+            }
+
+            return null;
+        }
+
+        public AinDevHelperSettingTextBoxControl GetTextBoxControlByNameOrNull(string name) {
+            if (name == null) {
+                throw new ArgumentNullException("name", "Параметр не может быть равен null");
+            }
+            if (SettingControls.Any(control => name.Equals(control.Name))) {
+                AinDevHelperSettingBaseControl foundControl = SettingControls.First(control => name.Equals(control.Name));
+                return foundControl is AinDevHelperSettingTextBoxControl textBoxControl ? textBoxControl : null;
+            }
+
+            return null;
+        }
+
+        public AinDevHelperSettingRadioButtonGroupControl GetRadioButtonGroupControlByNameOrNull(string name) {
+            if (name == null) {
+                throw new ArgumentNullException("name", "Параметр не может быть равен null");
+            }
+            if (SettingControls.Any(control => name.Equals(control.Name))) {
+                AinDevHelperSettingBaseControl foundControl = SettingControls.First(control => name.Equals(control.Name));
+                return foundControl is AinDevHelperSettingRadioButtonGroupControl radioButtonGroupControl ? radioButtonGroupControl : null;
+            }
+
+            return null;
+        }
     }
 }

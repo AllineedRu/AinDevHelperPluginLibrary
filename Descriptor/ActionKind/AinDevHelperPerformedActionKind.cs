@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AinDevHelperPluginLibrary.Descriptor {
+namespace AinDevHelperPluginLibrary.Descriptor.ActionKind {
     [Serializable]
     public abstract class AinDevHelperPerformedActionKind {
 

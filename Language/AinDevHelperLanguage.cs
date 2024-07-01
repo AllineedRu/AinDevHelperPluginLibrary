@@ -289,6 +289,15 @@ namespace AinDevHelperPluginLibrary.Language {
         /// </summary>
         public virtual string MenuToolsCharsConverter { get; set; } = "Конвертер символов в коды...";
 
+        public virtual string MenuToolsCalculateStringLength { get; set; } = "Подсчитать длину строки...";
+
+        public virtual string MenuHelpNavigateToAllineedRuMainPage { get; set; } = "Перейти на главную страницу Allineed.Ru";
+        public virtual string MenuHelpJoinAllineedRuMainTelegramGroup { get; set; } = "Присоединиться к основной группе Allineed.Ru в Telegram";
+        public virtual string MenuHelpHotKeysCombinations { get; set; } = "Справка по быстрым сочетаниям клавиш...";
+        public virtual string MenuHelpOpenOfflineHelp { get; set; } = "Оффлайн-справка по программе AinDevHelper";
+        public virtual string MenuHelpReportABug { get; set; } = "Сообщить разработчикам о проблеме...";
+        public virtual string MenuHelpAboutProgram { get; set; } = "О программе AinDevHelper...";
+
         /// <summary>
         /// [RU] Локализация для вкладки "Основное" на главной форме приложения
         /// [EN] Localization for the "Main Info" tab on the main application form
@@ -432,7 +441,7 @@ namespace AinDevHelperPluginLibrary.Language {
         /// [RU] Локализация для метки "Email автора плагина:" на вкладке "Основное"
         /// [EN] Localization for the "Plugin author email:" label on the "Main Info" tab
         /// </summary>
-        public virtual string TabPageMainInfoLabelPluginAuthorEmail { get; set; } = "Email автора плагина:";
+        public virtual string TabPageMainInfoLabelPluginAuthorEmail { get; set; } = "E-mail автора плагина:";
 
 
         /// <summary>
@@ -687,7 +696,7 @@ namespace AinDevHelperPluginLibrary.Language {
         /// [RU] Локализация для заголовка диалогового окна "Конвертер символов в коды", доступного из пункта главного меню "Инструменты"
         /// [EN] Localization for the title of the "Converter of characters to codes" dialog box, accessible from the "Tools" main menu item
         /// </summary>
-        public virtual string ToolFormCharsConverterDialogTitle { get; set; } = "Конвертер символов в коды";
+        public virtual string ToolFormCharsConverterDialogTitle { get; set; } = "Конвертер символов в коды";        
 
         /// <summary>
         /// [RU] Локализация для метки "Введите символ или символы:" в диалоговом окне "Конвертер символов в коды", доступном из пункта главного меню "Инструменты"
@@ -732,6 +741,10 @@ namespace AinDevHelperPluginLibrary.Language {
         /// </summary>
         public virtual string ToolFormGenerateGUIDCopyGUIDToClipboardButtonTitle { get; set; } = "Копировать GUID в буфер обмена";
 
+        public virtual string ToolFormCalculateStringLengthDialogTitle { get; set; } = "Подсчитать длину строки";
+        public virtual string ToolFormCalculateStringLengthLabelEnterAString { get; set; } = "Введите строку для подсчёта количества символов в ней:";
+        public virtual string ToolFormCalculateStringLengthLabelNumberOfCharactersInString { get; set; } = "Количество символов в строке:";
+        public virtual string ToolFormCalculateStringLengthCopyNumberOfCharactersInStringButtonTitle { get; set; } = "Копировать количество символов в строке";        
 
         public virtual string SettingsFormDialogTitle { get; set; } = "Настройки";
         public virtual string SettingsFormSectionMain { get; set; } = "Основные";
@@ -822,19 +835,36 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string CommonValidationErrorsDialogTitle { get; set; } = "Ошибки валидации";
         public virtual string CommonValidationErrorsMessage { get; set; } = "На форме присутствуют ошибки при заполнении полей. Пожалуйста, исправьте их перед продолжением.";
 
-        public virtual string CommonActionParamTextDataType { get; set; } = "Текстовое поле";        
-        public virtual string CommonActionParamOneOfMultipleSelectionDataType { get; set; } = "Выбор одного из нескольких значений";
+        public virtual string CommonActionParamTextDataType { get; set; } = "Текстовое поле";
         public virtual string CommonActionParamCheckBoxYesNoDataType { get; set; } = "Флажок (Да/Нет)";        
         public virtual string CommonActionParamDirectorySelectionDataType { get; set; } = "Выбор каталога";
         public virtual string CommonActionParamFileSelectionDataType { get; set; } = "Выбор файла";
         public virtual string CommonBrowseButtonTitle { get; set; } = "Обзор...";
         public virtual string CommonCancelButtonTitle { get; set; } = "Отмена";
         public virtual string CommonCloseButtonTitle { get; set; } = "Закрыть";
+        public virtual string CommonSaveButtonTitle { get; set; } = "Сохранить";
+        public virtual string CommonDeleteButtonTitle { get; set; } = "Удалить";
+        public virtual string CommonEditButtonTitle { get; set; } = "Правка";
         public virtual string CommonClickToCopyMessage { get; set; } = "Кликните, чтобы скопировать в буфер обмена";
         public virtual string CommonMsgQuestionSaveChangesBeforeExit { get; set; } = "На форме есть несохранённые изменения. Сохранить их перед выходом?";
         public virtual string CommonMsgConfirmSavingChangesDialogTitle { get; set; } = "Подтвердите сохранение изменений";
         public virtual string CommonMsgVersion { get; set; } = "Версия";
         public virtual string CommonMsgErrorDetails { get; set; } = "Детали ошибки:";
+        public virtual string CommonMsgUnexpectedErrorOccurred { get; set; } = "Произошла непредвиденная ошибка";
+        public virtual string CommonMsgErrorOfflineHelpFilesNotFound { get; set; } = "Файлы {0} оффлайн-справки не были найдены в каталоге 'help' программы. Возможно, файлы справки были перемещены или удалены. Попробуйте вернуть файлы в каталог 'help' или переустановить программу заново.";
+        public virtual string CommonMsgAreYouSureToRemoveSelectedPlugin { get; set; } = "Вы уверены, что хотите окончательно удалить плагин '{0}'?";
+        public virtual string CommonMsgPluginRemovalIrreversibleChangesWarning { get; set; } = "При подтверждении данного действия каталог плагина будет безвозвратно удалён с диска вместе со всеми файлами плагина. Если Вы вновь захотите использовать плагин позднее, Вам потребуется его устанавливать заново.";
+        public virtual string CommonMsgConfirmTheAction { get; set; } = "Подтвердите выполнение действия";
+        public virtual string CommonMsgThePluginWasSuccessfullyRemoved { get; set; } = "Плагин '{0}' был успешно удалён.";
+        public virtual string CommonMsgCompletedSuccessfully { get; set; } = "Успешно выполнено";
+        public virtual string CommonMsgMailRecipientGreeting { get; set; } = "{0}, добрый день!";
+        public virtual string CommonMsgMailContentPlaceholder { get; set; } = "[Введите здесь текст вашего сообщения...]";
+        public virtual string CommonMsgMailBugReportContentPlaceholder { get; set; } = "[Введите здесь текст вашего сообщения и опишите детали ошибки, возникшей в программе AinDevHelper. Очень желательно предоставить подробные скриншоты с ошибкой и детальные шаги по её воспроизведению. Так мы быстрее сможем отреагировать и исправить ошибку в ближайшем обновлении AinDevHelper]";
+        public virtual string CommonMsgMailSubjectQuestion { get; set; } = "Вопрос по продукту AinDevHelper";
+        public virtual string CommonMsgMailSubjectBugReport { get; set; } = "Отчёт об ошибке по продукту AinDevHelper";
+        public virtual string CommonMsgMailContentBestRegards { get; set; } = "С наилучшими пожеланиями,";
+        public virtual string CommonMsgMailContentSignature { get; set; } = "[Ваше имя]";
+
 
         public virtual string CreateXmlPluginDialogTitle { get; set; } = "Создать плагин на базе XML-дескриптора";
         public virtual string CreateXmlPluginFormLabelPluginName { get; set; } = "Название плагина:";
@@ -845,15 +875,36 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string CreateXmlPluginFormLabelPluginDescription { get; set; } = "Описание:";
         public virtual string CreateXmlPluginFormLabelPluginActions { get; set; } = "Действия плагина:";
         public virtual string CreateXmlPluginFormLabelPluginDirectoryName { get; set; } = "Название нового каталога для плагина в каталоге /plugins:";
-
+        public virtual string CreateXmlPluginFormLabelPluginTags { get; set; } = "Теги плагина (вводите через запятую):";
+        public virtual string CreateXmlPluginFormLabelPluginAuthorEmail { get; set; } = "E-mail автора плагина:";
+        public virtual string CreateXmlPluginFormLabelPluginSupportedLanguages { get; set; } = "Языки, поддерживаемые плагином:";
+        public virtual string CreateXmlPluginFormLabelSelectedPluginAction { get; set; } = "Выбранное действие:";
+        
         public virtual string CreateXmlPluginFormAddPluginActionButtonTitle { get; set; } = "Добавить";
         public virtual string CreateXmlPluginFormEditPluginActionButtonTitle { get; set; } = "Правка";
         public virtual string CreateXmlPluginFormDeletePluginActionButtonTitle { get; set; } = "Удалить";
         public virtual string CreateXmlPluginFormCreatePluginButtonTitle { get; set; } = "Создать плагин";
         public virtual string CreateXmlPluginFormCancelButtonTitle { get; set; } = "Отмена";
 
-        public virtual string AddXmlPluginActionDialogTitle { get; set; } = "Добавить действие плагина";
+        public virtual string CreateXmlPluginFormErrMsgDirectoryAlreadyExists { get; set; } = "Каталог '{0}' уже существует. Пожалуйста, выберите другое название каталога для создания нового плагина.";
+        public virtual string CreateXmlPluginFormSuccessMsgPluginSuccessfullyCreated { get; set; } = "Плагин '{0}' успешно создан в каталоге '{1}'! Желаете открыть каталог плагина в Проводнике?";
+        public virtual string CreateXmlPluginFormSuccessMsgPluginSuccessfullyCreatedDialogTitle { get; set; } = "Плагин создан успешно";
+        public virtual string CreateXmlPluginFormSuccessMsgPluginSuccessfullyEdited { get; set; } = "Изменения для плагина '{0}' успешно сохранены!";
+        public virtual string CreateXmlPluginFormSuccessMsgPluginSuccessfullyEditedDialogTitle { get; set; } = "Плагин сохранён успешно";
+        public virtual string CreateXmlPluginFormErrMsgUnexpectedErrorWhenCreatingPlugin { get; set; } = "Возникла непредвиденная ошибка при создании плагина. Детали:";
+        public virtual string CreateXmlPluginFormErrMsgUnexpectedErrorWhenSavingPlugin { get; set; } = "Возникла непредвиденная ошибка при сохранении изменений для плагина. Детали:";
+        public virtual string CreateXmlPluginFormErrMsgMissingPluginName { get; set; } = "Вы должны указать имя плагина";
+        public virtual string CreateXmlPluginFormErrMsgMissingPluginDescription { get; set; } = "Вы должны ввести описание для плагина. Поясните другим разработчикам, что делает Ваш плагин.";
+        public virtual string CreateXmlPluginFormErrMsgMissingPluginDirectory { get; set; } = "Вы должны ввести название для каталога, в котором будет сохранён XML-дескриптор плагина. Это каталог внутри каталога 'plugins' относительно корневого каталога AinDevHelper.";
+        public virtual string CreateXmlPluginFormErrMsgMissingPluginAuthor { get; set; } = "Введите имя автора плагина.";
 
+        public virtual string EditXmlPluginDialogTitle { get; set; } = "Редактировать плагин на базе XML-дескриптора";
+        public virtual string EditXmlPluginFormSavePluginButtonTitle { get; set; } = "Сохранить плагин";
+        public virtual string EditXmlPluginFormLabelPluginDirectoryName { get; set; } = "Путь к каталогу плагина в каталоге /plugins:";
+
+        public virtual string AddXmlPluginActionDialogTitle { get; set; } = "Добавить действие плагина";
+        public virtual string AddXmlPluginActionEditDialogTitle { get; set; } = "Редактировать действие плагина";
+        
         public virtual string AddXmlPluginActionFormTypeOfPluginActionGroupBoxTitle { get; set; } = "Тип действия плагина:";
         public virtual string AddXmlPluginActionFormRadioButtonNoParamsAction { get; set; } = "Действие без параметров";
         public virtual string AddXmlPluginActionFormRadioButtonParameterizedAction { get; set; } = "Действие с параметрами";
@@ -869,6 +920,7 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string AddXmlPluginActionFormRedirectToFileGroupBoxTitle { get; set; } = "Перенаправление вывода в файл:";
 
         public virtual string AddXmlPluginActionFormCheckBoxRedirectToFile { get; set; } = "Перенаправлять вывод от выполнения действия в файл";
+        public virtual string AddXmlPluginActionFormCheckBoxShowProcessWindow { get; set; } = "Показывать окно при запуске процесса";
 
         public virtual string AddXmlPluginActionFormLabelRedirectToFileName { get; set; } = "Имя файла:";
 
@@ -883,14 +935,31 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string AddXmlPluginActionFormAddActionParameterButtonTitle { get; set; } = "Добавить параметр плагина";
 
         public virtual string AddXmlPluginActionFormAddPluginActionButtonTitle { get; set; } = "Добавить действие плагина";
+        public virtual string AddXmlPluginActionFormSavePluginActionButtonTitle { get; set; } = "Сохранить действие плагина";
+
         public virtual string AddXmlPluginActionFormCancelButtonTitle { get; set; } = "Отмена";
 
         public virtual string AddXmlPluginActionErrMsgEnterCommandForAction { get; set; } = "Введите команду для действия";
-        public virtual string AddXmlPluginActionErrMsgEnterWebLinkForAction { get; set; } = "Введите Web-ссылку для действия";
-
+        public virtual string AddXmlPluginActionErrMsgEnterWebLinkForAction { get; set; } = "Введите Web-ссылку для действия";        
         public virtual string AddXmlPluginActionErrMsgEnterActionName { get; set; } = "Введите имя для действия";
         public virtual string AddXmlPluginActionErrMsgEnterActionID { get; set; } = "Введите ID для действия";
+        public virtual string AddXmlPluginActionErrMsgParameterWithThisNameAlreadyExists { get; set; } = "Параметр с именем '{0}' уже существует. Выберите другое имя для добавления нового параметра.";
 
+
+        public virtual string AddLocalizedMessageDialogTitle { get; set; } = "Добавить локализацию";
+        public virtual string AddLocalizedMessageForFieldDialogTitle { get; set; } = "Добавить локализацию для поля '{0}'";
+        public virtual string AddLocalizedMessageFormLabelLanguage { get; set; } = "Язык:";
+        public virtual string AddLocalizedMessageFormLabelAddLocalizedMessage { get; set; } = "Добавить локализованную строку для выбранного языка:";
+        public virtual string AddLocalizedMessageFormLabelEditLocalizedMessage { get; set; } = "Редактировать локализованную строку: [{0}]:{1}";
+        public virtual string AddLocalizedMessageFormLabelAddedLocalizedStrings { get; set; } = "Добавленные локализованные строки:";
+        public virtual string AddLocalizedMessageFormAddLocalizedMessageButtonTitle { get; set; } = "Добавить локализацию";
+        public virtual string AddLocalizedMessageErrMsgCannotAddMoreThanOneLocalizedMessageForSingleLanguage { get; set; } = "Нельзя добавить более одного локализационного сообщения для одного и того же языка";
+        public virtual string AddLocalizedMessageErrMsgCannotAddEmptyLocalizedMessage { get; set; } = "Нельзя добавить пустое локализационное сообщение";
+
+        //AinCustomButtonAddLocalizedMessage
+
+        //Добавить локализованную строку для выбранного языка:
+        //LabelAddedLocalizedStrings
         public virtual string InstallPluginsFormDialogTitle { get; set; } = "Установить плагины для AinDevHelper";
         public virtual string InstallPluginsFormLabelSpecifyInstallationFiles { get; set; } = "Выберите расположение ZIP-архивов с плагинами AinDevHelper для их установки:";
         public virtual string InstallPluginsFormLabelYouCanDragAndDropPluginFilesHere { get; set; } = "Для установки плагинов Вы также можете просто перетащить один или несколько ZIP-архивов с упакованными плагинами AinDevHelper в эту область:";
@@ -932,6 +1001,7 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string TreeCtxMenuExpandNode { get; set; } = "Раскрыть узел";
         public virtual string TreeCtxMenuCollapseNode { get; set; } = "Свернуть узел";
         public virtual string TreeCtxMenuOpenPluginXmlDescriptorFile { get; set; } = "Открыть файл XML-дескриптора для плагина";
+        public virtual string TreeCtxMenuEditXmlDescriptorBasedPlugin { get; set; } = "Редактировать плагин на базе XML-дескриптора";
         public virtual string TreeCtxMenuRemoveSelectedPlugin { get; set; } = "Удалить выбранный плагин";
 
         public virtual string MsgMailtoAuthorPluginMailSubject { get; set; } = "Вопрос по плагину \"{0}\" для AinDevHelper";
@@ -941,6 +1011,22 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string MsgMailtoAuthorPluginMailContentBestRegards { get; set; } = "С наилучшими пожеланиями,";
         public virtual string MsgMailtoAuthorPluginMailContentSignature { get; set; } = "[Ваше имя]";
 
+        public virtual string AboutFormDialogTitle { get; set; } = "О программе AinDevHelper...";
+        public virtual string AboutFormLabelAppTitleExtra { get; set; } = "Помощник Разработчика";
+        public virtual string AboutFormLabelProgramVersion { get; set; } = "Версия программы:";
+        public virtual string AboutFormLabelCopyright { get; set; } = "Авторские права:";
+        public virtual string AboutFormLabelOfficialSite { get; set; } = "Официальный сайт программы:";
+        public virtual string AboutFormLabelDevelopersEmail { get; set; } = "E-mail разработчика:";
+        public virtual string AboutFormLabelMainTelegramGroup { get; set; } = "Группа сайта Allineed.Ru в Telegram:";
+        public virtual string AboutFormLabelTelegramTopicForProducts { get; set; } = "Тема с вопросами по продуктам Allineed.Ru:";
+        public virtual string AboutFormLabelThisProgramIsDistributedUnderLicense { get; set; } = "Данное программное обеспечение распространяется под лицензией";
+
+
+        public virtual string DescriptorBasedPluginErrMsgActionNotRecognized { get; set; } = "Ошибка при выполнении действия плагина. Действие не распознано.";
+        public virtual string DescriptorBasedPluginErrMsgGivenActionNotRecognized { get; set; } = "Ошибка при выполнении действия плагина. Действие '{0}' не распознано.";
+        public virtual string DescriptorBasedPluginMsgGivenActionCompletedSuccessfully { get; set; } = "Действие '{0}' выполнено успешно.";
+        public virtual string DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode { get; set; } = "Действие '{0}' выполнено неуспешно. Код завершения процесса: {1}";
+        public virtual string DescriptorBasedPluginErrMsgArgumentNullMessage { get; set; } = "Параметр не может быть равен null";
         /// <summary>
         /// [RU] Локализация для формата даты, который используется при логировании событий на вкладке "Лог событий", а также других элементах интерфейса, работающих с датами
         /// [EN] Localization for the date format, which is used when logging events on the "Event Log" tab, as well as other interface elements that work with dates

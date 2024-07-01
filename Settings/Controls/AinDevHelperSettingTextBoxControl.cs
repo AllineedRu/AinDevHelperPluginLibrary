@@ -16,39 +16,31 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AinDevHelperPluginLibrary {
-
+namespace AinDevHelperPluginLibrary.Settings.Controls {
+    /// <summary>
+    /// [RU] Класс описывает элемент управления в виде текстового поля<br/>
+    /// [EN] The class describes a control as a text field
+    /// </summary>
     [Serializable]
-    public class AinDevHelperSettingTextBoxControl : AinDevHelperSettingBaseControl {
-        //protected IAinDevHelperSettingControlValue controlValue;
-        public string Label { get; set; }
+    public class AinDevHelperSettingTextBoxControl : AinDevHelperSettingControlWithLabel {
+        /// <summary>
+        /// [RU] Текст в текстовом поле<br/>
+        /// [EN] Text in a text box
+        /// </summary>
         public string Text { get; set; }
 
         public AinDevHelperSettingTextBoxControl() {
         }
 
         public AinDevHelperSettingTextBoxControl(string name, string label) : base(name) {
-            //controlValue = new AinDevHelperSettingTextValue();
             Text = "";
             Label = label;
         }
 
         public AinDevHelperSettingTextBoxControl(string name, string label, string textValue) : base(name) {
-            //controlValue = new AinDevHelperSettingTextValue(textValue);
             Text = textValue;
             Label = label;
-        }        
-        //public override IAinDevHelperSettingControlValue GetValue() {
-        //    return controlValue;
-        //}
-
-        //public override void SetValue(IAinDevHelperSettingControlValue value) {
-        //    controlValue = value;
-        //}
+        }
     }
 }

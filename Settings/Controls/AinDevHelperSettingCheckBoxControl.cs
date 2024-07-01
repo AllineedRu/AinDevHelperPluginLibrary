@@ -16,32 +16,26 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 
-namespace AinDevHelperPluginLibrary {
+namespace AinDevHelperPluginLibrary.Settings.Controls {
+    /// <summary>
+    /// [RU] Класс описывает элемент управления в настройках плагина в виде флажка (чекбокса)<br/>
+    /// [EN] The class describes a control element in the plugin settings in the form of checkbox
+    /// </summary>
     [Serializable]
-    public class AinDevHelperSettingRadioButtonGroup : IAinDevHelperSettingControlValue {
+    public class AinDevHelperSettingCheckBoxControl : AinDevHelperSettingControlWithLabel {
         /// <summary>
-        /// Содержит имена всех радиокнопок в группе
+        /// [RU] Свойство определяет, выбран или нет флажок в элементе управления<br/>
+        /// [EN] Property determines whether a checkbox in a control is selected or not
         /// </summary>
-        [XmlArray("RadioButtonNames"), XmlArrayItem(typeof(string), ElementName = "string")]
-        public List<string> RadioButtonNames { get; set; } = new List<string>();
-        
-        /// <summary>
-        /// Содержит имя выбранной радиокнопки
-        /// </summary>
-        public string CurrentValue { get; set; }
+        public bool Checked { get; set; }
 
-        /// <summary>
-        /// Добавляет имя радиокнопки к текущей группе
-        /// </summary>
-        /// <param name="value"></param>
-        public void AddValue(string value) {
-            RadioButtonNames.Add(value);
+        public AinDevHelperSettingCheckBoxControl() {
+        }
+
+        
+
+        public AinDevHelperSettingCheckBoxControl(string name, string label) : base(name, label) {
         }
     }
 }

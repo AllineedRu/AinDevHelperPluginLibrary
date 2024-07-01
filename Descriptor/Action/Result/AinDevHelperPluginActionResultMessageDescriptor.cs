@@ -15,17 +15,21 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+using AinDevHelperPluginLibrary.Language;
 using System;
 using System.Collections.Generic;
 
 namespace AinDevHelperPluginLibrary.Descriptor {
     /// <summary>
-    /// [RU] Класс описывает результирующее сообщение от выполнения действия плагина. Сообщение может поддерживать параметры<br/>
-    /// [EN] The class describes the resulting message from the execution of the plugin action. The message can support parameters
+    /// [RU] Класс описывает результирующее сообщение от выполнения действия плагина. Сообщение может поддерживать параметры подстановки<br/>
+    /// [EN] The class describes the resulting message from the execution of the plugin action. The message can support substitution parameters
     /// </summary>
     [Serializable]
     public class AinDevHelperPluginActionResultMessageDescriptor {
         public string Message { get; set; }
+
+        public HashSet<AinDevHelperLocalizedMessage> LocalizedMessages { get; set; } = new HashSet<AinDevHelperLocalizedMessage>();
+
         public List<string> SubstitutionParameters { get; set; } = new List<string>();
     }
 }

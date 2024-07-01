@@ -15,17 +15,22 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace AinDevHelperPluginLibrary.Actions.Parameters {
+    /// <summary>
+    /// [RU] Класс описывает параметр с типом "Выбор каталога" для параметризованного действия плагина<br/>
+    /// [EN] The class describes a parameter with type "Select directory" for a parameterized plugin action
+    /// </summary>
     public class AinDevHelperPluginActionDirectorySelectionParameter : AinDevHelperPluginActionParameter {
-
+        /// <summary>
+        /// [RU] Полный путь к выбранному каталогу<br/>
+        /// [EN] Full path to the selected directory
+        /// </summary>
         public string SelectedDirectory { get; set; }
 
+        /// <summary>
+        /// [RU] Название текстового поля, связанного с данным параметром. Свойство используется AinDevHelper и не предполагает использования на стороне плагина<br/>
+        /// [EN] The name of the text field associated with this parameter. The property is used by AinDevHelper and is not intended to be used on the plugin side
+        /// </summary>
         public string RelatedTextBoxName { get; set; }
 
         public AinDevHelperPluginActionDirectorySelectionParameter(string name, string label) : this(name, label, "") {

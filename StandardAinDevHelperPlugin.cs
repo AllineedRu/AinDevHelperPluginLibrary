@@ -163,7 +163,7 @@ namespace AinDevHelperPluginLibrary {
             try {
                 if (pluginSettings.SettingControls.Count > 0) {
                     var xmlSerializer = new XmlSerializer(pluginSettings.GetType());
-                    var settingsPath = PluginDirectory + Path.DirectorySeparatorChar + DEFAULT_PLUGIN_SETTINGS_FILE;
+                    var settingsPath = Path.Combine(PluginDirectory, DEFAULT_PLUGIN_SETTINGS_FILE);
 
                     if (File.Exists(settingsPath)) {
                         File.Delete(settingsPath);
@@ -174,7 +174,7 @@ namespace AinDevHelperPluginLibrary {
                     fileStream.Close();
                 } 
             } catch (Exception e) {
-                Console.WriteLine($"Ошибка в методе SaveSettings плагина {Name}: {e.Message}:");
+                Console.WriteLine($"Ошибка в методе SaveSettings плагина {Name}: {e.Message}");
                 Console.WriteLine(e);
             }
         }
@@ -185,7 +185,7 @@ namespace AinDevHelperPluginLibrary {
         /// </summary>
         public virtual void LoadSettings() {
             try {
-                var settingsPath = PluginDirectory + Path.DirectorySeparatorChar + DEFAULT_PLUGIN_SETTINGS_FILE;
+                var settingsPath = Path.Combine(PluginDirectory, DEFAULT_PLUGIN_SETTINGS_FILE);
 
                 if (File.Exists(settingsPath)) {
                     var xmlSerializer = new XmlSerializer(typeof(AinDevHelperPluginSettings));
@@ -193,7 +193,7 @@ namespace AinDevHelperPluginLibrary {
                     pluginSettings = (AinDevHelperPluginSettings)xmlSerializer.Deserialize(myFileStream);
                 }
             } catch (Exception e) {
-                Console.WriteLine($"Ошибка в методе LoadSettings плагина {Name}: {e.Message}:");
+                Console.WriteLine($"Ошибка в методе LoadSettings плагина {Name}: {e.Message}");
                 Console.WriteLine(e);
             }            
         }

@@ -18,7 +18,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Xml.Serialization;
 
-namespace AinDevHelperPluginLibrary.Descriptor {
+namespace AinDevHelperPluginLibrary.Descriptor.ActionParameter.Type {
     /// <summary>
     /// [RU] Класс описывает дескриптор параметра с типом "text" для действия плагина.
     /// [EN] The class represents a "text" type parameter descriptor for the plugin action.
@@ -36,8 +36,8 @@ namespace AinDevHelperPluginLibrary.Descriptor {
 
         }
 
-        public override string ToString() {
-            return $"{{Имя:{Name}, Метка:{Label}, Текст: {Text}}}";
-        }
+        //public override string ToString() {
+        //    return $"{{Имя:{Name}, Метка:{Label}, Текст: {Text}}}";
+        //}
     }
 }

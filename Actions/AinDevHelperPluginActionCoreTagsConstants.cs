@@ -16,16 +16,29 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 namespace AinDevHelperPluginLibrary.Actions {
-    public class AinDevHelperPluginActionCoreTagsConstants {
-        // Environment
+    /// <summary>
+    /// [RU] Класс содержит типовые строковые константы, которые могут использоваться в качестве тегов для действий плагина. Это лишь предлагаемые разработчикам плагинов значения, и они никак не ограничивают разработчиков от введния собственных тегов для действий<br/>
+    /// [EN] The class contains generic string constants that can be used as tags for plugin actions. These are just suggested values ​​for plugin developers, and do not in any way restrict developers from introducing their own tags for actions
+    /// </summary>
+    public static class AinDevHelperPluginActionCoreTagsConstants {
+        // ==========================================================================================================
+        // [RU] Среда, переменные среды
+        // [EN] Environment, Environment Variables
+        // ==========================================================================================================
         public static readonly string ENVIRONMENT = "environment";
         public static readonly string ENVIRONMENT_VARIABLES = "environment variables";
 
-        // Build & Build Tools
+        // ==========================================================================================================
+        // [RU] Сборка и Инструменты сборки
+        // [EN] Build & Build Tools
+        // ==========================================================================================================
         public static readonly string BUILD = "build";
         public static readonly string BUILD_TOOLS = "build tools";
 
-        // Commonly used terms: OOP, Design Patterns, Best Practices, Core Principles etc.
+        // ==========================================================================================================
+        // [RU] Часто используемые термины: ООП, шаблоны проектирования, лучшие практики, основные принципы и т. д.
+        // [EN] Commonly used terms: OOP, Design Patterns, Best Practices, Core Principles etc.
+        // ==========================================================================================================
         public static readonly string OOP = "oop";
         public static readonly string DESIGN = "design";
         public static readonly string DESIGN_PATTERNS = "design patterns";
@@ -58,7 +71,10 @@ namespace AinDevHelperPluginLibrary.Actions {
         public static readonly string DI = "di";
         public static readonly string SOLID = "solid";
 
-        // Programming Languages, Frameworks, Libraries
+        // ==========================================================================================================
+        // [RU] Языки программирования, фреймворки, библиотеки
+        // [EN] Programming Languages, Frameworks, Libraries
+        // ==========================================================================================================
         public static readonly string C = "c";
         public static readonly string CPP = "cpp";
         public static readonly string CPLUSPLUS = "c++";
@@ -124,21 +140,33 @@ namespace AinDevHelperPluginLibrary.Actions {
         public static readonly string YAML = "yaml";
         public static readonly string JSON = "json";
 
-        // Platforms: Desktop, Mobile etc.
+        // ==========================================================================================================
+        // [RU] Платформы: настольные, мобильные и т. д.
+        // [EN] Platforms: Desktop, Mobile etc.
+        // ==========================================================================================================
         public static readonly string DESKTOP = "desktop";
         public static readonly string MOBILE = "mobile";
         public static readonly string CLOUD = "cloud";
 
-        // Web, Web Development, Web Frameworks
+        // ==========================================================================================================
+        // [RU] Интернет, Веб-разработка, Веб-фреймворки
+        // [EN] Web, Web Development, Web Frameworks
+        // ==========================================================================================================
         public static readonly string WEB = "web";
         public static readonly string WEB_DEVELOPMENT = "web development";
         public static readonly string WEB_FRAMEWORKS = "web frameworks";
 
-        // Automation
+        // ==========================================================================================================
+        // [RU] Автоматизация, Автоматизация тестирования
+        // [EN] Automation, Test Automation
+        // ==========================================================================================================
         public static readonly string AUTOMATION = "automation";
         public static readonly string TEST_AUTOMATION = "test automation";
 
-        // QA, Testing
+        // ==========================================================================================================
+        // [RU] Контроль качества, Тестирование
+        // [EN] QA, Testing
+        // ==========================================================================================================
         public static readonly string TESTING = "testing";
         public static readonly string UNIT_TESTS = "unit tests";
         public static readonly string QA = "qa";

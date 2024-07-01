@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using AinDevHelperPluginLibrary.Language;
 
-namespace AinDevHelperPluginLibrary.Descriptor {
+namespace AinDevHelperPluginLibrary.Descriptor.ActionParameter {
     /// <summary>
     /// [RU] Дескриптор для параметра действия плагина<br/>
     /// [EN] Descriptor for plugin action parameter
@@ -59,12 +59,12 @@ namespace AinDevHelperPluginLibrary.Descriptor {
         /// </summary>
         public HashSet<AinDevHelperLocalizedMessage> LocalizedDescriptions { get; set; } = new HashSet<AinDevHelperLocalizedMessage>();
 
-
-        //[XmlAttribute]
-        //public AinDevHelperActionParameterType Type { get; set; }
-
         public AinDevHelperPluginActionParameterDescriptor() {
 
+        }
+
+        public override string ToString() {
+            return $"{{{Name}; {Label}}}";
         }
     }
 }

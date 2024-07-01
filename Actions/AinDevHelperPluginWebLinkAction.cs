@@ -24,8 +24,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AinDevHelperPluginLibrary.Actions {
+    /// <summary>
+    /// [RU] Класс описывает действие плагина с типом "Веб-ссылка". При выполнении этого действия AinDevHelper будет производить переход в браузере по указанному в действии адресу<br/>
+    /// [EN] The class describes the action of a plugin with the "Web link" type. When performing this action, AinDevHelper will navigate in the browser to the address specified in the action
+    /// </summary>
     public class AinDevHelperPluginWebLinkAction : AinDevHelperPluginAction {
+        /// <summary>
+        /// [RU] Адрес Веб-ссылки для перехода в браузере<br/>
+        /// [EN] Web link address to navigate to in browser
+        /// </summary>
         public string WebLink { get; set; }
+
         public AinDevHelperPluginWebLinkAction(string name, string id) : base(name, id) {
         }
 
@@ -46,6 +55,11 @@ namespace AinDevHelperPluginLibrary.Actions {
             }
         }
 
+        /// <summary>
+        /// [RU] Метод производит навигацию по Веб-ссылке, указанной в данном экземпляре действия (свойство <see cref="WebLink"/>)<br/>
+        /// [EN] The method navigates through the Web link specified in this action instance (property <see cref="WebLink"/>)
+        /// </summary>
+        /// <returns>[RU] <see langword="true"/>, если адрес Веб-ссылки непустой и процесс был запущен, иначе <see langword="false"/>;<br/>[EN] <see langword="true"/> if the Web link address is non-empty and the process has been started, otherwise <see langword="false"/></returns>
         public bool Navigate() {
             if (!string.IsNullOrEmpty(WebLink)) {
                 Process.Start(WebLink);

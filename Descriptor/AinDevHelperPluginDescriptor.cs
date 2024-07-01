@@ -15,6 +15,8 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+using AinDevHelperPluginLibrary.Descriptor.ActionKind;
+using AinDevHelperPluginLibrary.Descriptor.ActionParameter.Type;
 using AinDevHelperPluginLibrary.Language;
 using System;
 using System.Collections.Generic;
@@ -128,19 +130,19 @@ namespace AinDevHelperPluginLibrary.Descriptor {
         /// [RU] Свойство возвращает коллекцию строк, где каждая строка представляет собой тег для связи с экземпляром плагина и его семантического описания. Теги облегчают для пользователя AinDevHelper поиск данного плагина.<br/>
         /// [EN] The property returns a collection of strings, where each string represents a tag to associate with a plugin instance and its semantic description. Tags make it easier for the AinDevHelper user to find a given plugin.
         /// </summary>
-        public List<string> Tags { get; set; } = new List<string>();
+        public HashSet<string> Tags { get; set; } = new HashSet<string>();
 
         /// <summary>
         /// [RU] Свойство возвращает коллекцию строк, где каждая строка представляет собой код языка, поддерживаемого данным плагином. Если плагин предусматривает локализацию на другие языки, то он должен вернуть коды всех поддерживаемых языков.<br/>
         /// [EN] The property returns a collection of strings, where each string represents the code of the language supported by this plugin. If the plugin provides localization into other languages, then it must return codes for all supported languages.
         /// </summary>
-        public List<string> SupportedLanguageCodes { get; set; } = new List<string>();
+        public HashSet<string> SupportedLanguageCodes { get; set; } = new HashSet<string>();
 
         /// <summary>
         /// [RU] Свойство возвращает коллекцию элементов <see cref="AinDevHelperLocalizedMessage"/>, представляющих собой локализации описания плагина на поддерживаемые AinDevHelper языки.<br/>
         /// [EN] The property returns a collection of <see cref="AinDevHelperLocalizedMessage"/> elements, representing localizations of the plugin description into languages supported by AinDevHelper.
         /// </summary>
-        public List<AinDevHelperLocalizedMessage> LocalizedDescriptions { get; set; } = new List<AinDevHelperLocalizedMessage>();
+        public HashSet<AinDevHelperLocalizedMessage> LocalizedDescriptions { get; set; } = new HashSet<AinDevHelperLocalizedMessage>();
 
         /// <summary>
         /// [RU] Свойство возвращает коллекцию действий, которые поддерживаются экземпляром плагина.<br/>

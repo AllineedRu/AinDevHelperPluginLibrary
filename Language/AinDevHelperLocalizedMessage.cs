@@ -62,5 +62,14 @@ namespace AinDevHelperPluginLibrary.Language {
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Message);
             return hashCode;
         }
+
+        public override string ToString() {
+            if (LanguageCode != null && Message != null) {
+                return $"[{LanguageCode}]:{Message}";
+            } else if (LanguageCode != null && string.IsNullOrEmpty(Message)) {
+                return $"[{LanguageCode}]";
+            }
+            return string.Empty;
+        }
     }
 }

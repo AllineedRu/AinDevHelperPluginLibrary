@@ -17,14 +17,13 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
 
-namespace AinDevHelperPluginLibrary {
+namespace AinDevHelperPluginLibrary.Settings.Controls {
     [Serializable]
-    public abstract class AinDevHelperSettingBaseControl : IAinDevHelperSettingControl {
+    public abstract class AinDevHelperSettingBaseControl {
         public string Name { get; set; }
-
-        public int OffsetLeft { get; set; }
+        public int OffsetLeft { get; set; } = 10;
         public int OffsetTop { get; set; }
-        public int Width { get; set; }
+        public int Width { get; set; } = 550;
         public int Height { get; set; }
 
         public AinDevHelperSettingBaseControl() {

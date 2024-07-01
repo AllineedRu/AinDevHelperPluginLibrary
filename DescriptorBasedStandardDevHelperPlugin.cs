@@ -22,6 +22,10 @@ using System.IO;
 using AinDevHelperPluginLibrary.Descriptor;
 using AinDevHelperPluginLibrary.Actions;
 using AinDevHelperPluginLibrary.Actions.Parameters;
+using AinDevHelperPluginLibrary.Language;
+using System.Linq;
+using static AinDevHelperPluginLibrary.AinDevHelperPluginActionResult;
+using AinDevHelperPluginLibrary.Descriptor.ActionKind;
 
 namespace AinDevHelperPluginLibrary {
     /// <summary>
@@ -34,6 +38,10 @@ namespace AinDevHelperPluginLibrary {
         private const string PLUGIN_ACTION_NAME_VAR = "$PLUGIN_ACTION_NAME$";
         private const string PLUGIN_ACTION_WEB_LINK_VAR = "$PLUGIN_ACTION_WEB_LINK$";
 
+        /// <summary>
+        /// [RU] Константа, задающее имя XML-файла, представляющего собой дескриптор для плагина<br/>
+        /// [EN] A set of localized messages about the successful completion of a plugin action
+        /// </summary>
         public const string PLUGIN_DESCRIPTOR_FILE_NAME = "plugin_descriptor.xml";
 
         public AinDevHelperPluginDescriptor PluginDescriptor { get; set; }
@@ -46,12 +54,15 @@ namespace AinDevHelperPluginLibrary {
         public override int BuildVersion => PluginDescriptor.BuildVersion;
         public override int RevisionVersion => PluginDescriptor.RevisionVersion;
         public override string AuthorSiteURL => PluginDescriptor.AuthorSiteURL;
+        public override string AuthorEmail => PluginDescriptor.AuthorEmail;
         public override IEnumerable<string> Tags => PluginDescriptor.Tags;
         public override IEnumerable<string> SupportedLanguageCodes => PluginDescriptor.SupportedLanguageCodes;
+        public override string Version => PluginDescriptor.Version;
+        public override IEnumerable<AinDevHelperLocalizedMessage> LocalizedDescriptions => PluginDescriptor.LocalizedDescriptions;
 
         public DescriptorBasedStandardDevHelperPlugin(AinDevHelperPluginDescriptor pluginDescriptor) {
             if (pluginDescriptor == null) {
-                throw new ArgumentNullException("pluginDescriptor", "Параметр не может быть равен null");
+                throw new ArgumentNullException("pluginDescriptor", Host.GetCurrentLanguage().DescriptorBasedPluginErrMsgArgumentNullMessage);
             }
             PluginDescriptor = pluginDescriptor;
         }
@@ -69,8 +80,11 @@ namespace AinDevHelperPluginLibrary {
                     } else if (actionDescriptor is AinDevHelperPluginNoParamsActionDescriptor noParamsActionDescriptor) {
                         AinDevHelperPluginAction noParamsPluginAction = new AinDevHelperPluginAction(noParamsActionDescriptor);
                         pluginActions.Add(noParamsPluginAction);
-                    }
-                    else {
+                    } else if (actionDescriptor is AinDevHelperPluginGenerationActionDescriptor generationActionDescriptor) {
+                        //TODO: пока нет способов через AinDevHelper настроить действие на генерацию в XML-плагине
+                        AinDevHelperPluginAction generationPluginAction = new AinDevHelperPluginGenerationAction(generationActionDescriptor);
+                        pluginActions.Add(generationPluginAction);
+                    } else {
                         //TODO: резерв под будущие типы параметров для действия плагина. Реализовать другие ветки при появлении новых типов
                     }
                 }
@@ -118,43 +132,24 @@ namespace AinDevHelperPluginLibrary {
 
 
             if (actionKindRunProcess.SubstitutionParameters != null && actionKindRunProcess.SubstitutionParameters.Count > 0) {
-                //if (!string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory)) {
+                string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) || 
+                    PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
 
-                    string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) || 
-                        PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
+                List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(actionKindRunProcess.SubstitutionParameters, substitutionParamsReplacementDict);
+                processExitCode = AinCommandLineHelper.RunProcessWithWindow(
+                    workingDirectory,
+                    commandToRun,
+                    string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
+                );
+            } else {                
+                string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) ||
+                    PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
 
-                    List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(actionKindRunProcess.SubstitutionParameters, substitutionParamsReplacementDict);
-                    processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                        workingDirectory,
-                        commandToRun,
-                        string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
-                    );
-                //} else {
-                    //List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(actionKindRunProcess.SubstitutionParameters, substitutionParamsReplacementDict);
-                    //processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                    //    commandToRun,
-                    //    string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
-                    //);
-                //}
-
-                //TODO: add validations?
-                //RecentTauriAppName ??= Path.GetFileName(targetDirectory);
-            } else {
-                //if (!string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory)) {
-                    string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) ||
-                        PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
-
-                    processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                        workingDirectory,
-                        commandToRun,
-                        argumentsForCommand
-                    );
-                //} else {
-                    //processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                    //    commandToRun,
-                    //    argumentsForCommand
-                    //);
-                //}
+                processExitCode = AinCommandLineHelper.RunProcessWithWindow(
+                    workingDirectory,
+                    commandToRun,
+                    argumentsForCommand
+                );                
             }
 
             substitutionParamsReplacementDict.Add(PROCESS_EXIT_CODE_VAR, processExitCode.ToString());
@@ -169,7 +164,12 @@ namespace AinDevHelperPluginLibrary {
                         return new AinDevHelperPluginActionResult(this, parameterizedAction, parameterizedActionDescriptor.SuccessMessage.Message, true);
                     }                    
                 } else {
-                    return new AinDevHelperPluginActionResult(this, parameterizedAction, $"Действие '{parameterizedAction.Name}' выполнено успешно.", false);
+                    return new AinDevHelperPluginActionResult(
+                        this, 
+                        parameterizedAction,
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, parameterizedAction.Name),                         
+                        false
+                    );
                 }                
             } else {
                 if (parameterizedActionDescriptor.ErrorMessage != null) {
@@ -180,9 +180,15 @@ namespace AinDevHelperPluginLibrary {
                     } else {
                         return new AinDevHelperPluginActionResult(this, parameterizedAction, parameterizedActionDescriptor.ErrorMessage.Message, true);
                     }                    
-                } else {
-                    return new AinDevHelperPluginActionResult(this, parameterizedAction, $"Действие '{parameterizedAction.Name}' выполнено неуспешно (код завершения процесса: {processExitCode}).", true);
-                }                
+                } else {                    
+                    return new AinDevHelperPluginActionResult(
+                        this, 
+                        parameterizedAction, 
+                        ActionResultReturnCode.PluginFailedToExecuteAction, 
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, parameterizedAction.Name, processExitCode), 
+                        true
+                    );                    
+                }
             }
         }
 
@@ -195,8 +201,8 @@ namespace AinDevHelperPluginLibrary {
                     return RunParameterizedActionKindRunProcess(parameterizedAction, parameterizedActionDescriptor, actionKindRunProcess);
                 }
             }
-            
-            return GetErroneousResponse(parameterizedAction, "Ошибка при выполнении действия плагина. Действие не распознано.");
+
+            return GetErroneousResponseActionNotRecognized(parameterizedAction);
         }
 
         public virtual AinDevHelperPluginActionResult RunNoParamsAction(AinDevHelperPluginAction noParamsAction) {
@@ -209,7 +215,7 @@ namespace AinDevHelperPluginLibrary {
                 }
             }
 
-            return GetErroneousResponse(noParamsAction, "Ошибка при выполнении действия плагина. Действие не распознано.");
+            return GetErroneousResponseActionNotRecognized(noParamsAction);
         }
 
         private AinDevHelperPluginActionResult RunNoParamsActionKindRunProcess(AinDevHelperPluginAction noParamsAction, AinDevHelperPluginNoParamsActionDescriptor noParamsActionDescriptor, AinDevHelperPerformedActionKindRunProcess actionKindRunProcess) {
@@ -222,112 +228,74 @@ namespace AinDevHelperPluginLibrary {
                         { PLUGIN_ACTION_NAME_VAR, noParamsAction.Name }
                     };
 
-            if (actionKindRunProcess.SubstitutionParameters != null && actionKindRunProcess.SubstitutionParameters.Count > 0) {
-                //if (!string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory)) {
-                    List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(actionKindRunProcess.SubstitutionParameters, substitutionParamsReplacementDict);
+            if (actionKindRunProcess.SubstitutionParameters != null && actionKindRunProcess.SubstitutionParameters.Count > 0) {                
+                List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(actionKindRunProcess.SubstitutionParameters, substitutionParamsReplacementDict);
 
-                    string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) || 
-                        PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
+                string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) || 
+                    PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
 
-                    if (actionKindRunProcess.ShowProcessWindow) {
-                        if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
-                            processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                                workingDirectory,
-                                commandToRun,
-                                string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray()) + " > " + actionKindRunProcess.RedirectToFileName
-                            );
-                        } else {
-                            processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                                workingDirectory,
-                                commandToRun,
-                                string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
-                            );
-                        }
+                if (actionKindRunProcess.ShowProcessWindow) {
+                    if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
+                        processExitCode = AinCommandLineHelper.RunProcessWithWindow(
+                            workingDirectory,
+                            commandToRun,
+                            string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray()) + " > " + actionKindRunProcess.RedirectToFileName
+                        );
                     } else {
-                        if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
-                            processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
-                                workingDirectory,
-                                commandToRun,
-                                string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray()) + " > " + actionKindRunProcess.RedirectToFileName
-                            );
-                        } else {
-                            processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
-                                workingDirectory,
-                                commandToRun,
-                                string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
-                            );
-                        }
+                        processExitCode = AinCommandLineHelper.RunProcessWithWindow(
+                            workingDirectory,
+                            commandToRun,
+                            string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
+                        );
                     }
-
-
-                //} else {
-                    //List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(actionKindRunProcess.SubstitutionParameters, substitutionParamsReplacementDict);
-                    //processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                    //    commandToRun,
-                    //    string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
-                    //);
-                //}
-            } else {
-                //if (!string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory)) {
-                    string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) || 
-                        PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
-
-                    if (actionKindRunProcess.ShowProcessWindow) {
-                        if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
-                            processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                                workingDirectory,
-                                commandToRun,
-                                argumentsForCommand + " > " + actionKindRunProcess.RedirectToFileName
-                            );
-                        } else {
-                            processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                                workingDirectory,
-                                commandToRun,
-                                argumentsForCommand
-                            );
-                        }                        
+                } else {
+                    if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
+                        processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
+                            workingDirectory,
+                            commandToRun,
+                            string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray()) + " > " + actionKindRunProcess.RedirectToFileName
+                        );
                     } else {
-                        if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
-                            processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
-                                workingDirectory,
-                                commandToRun,
-                                argumentsForCommand + " > " + actionKindRunProcess.RedirectToFileName
-                            );
-                        } else {
-                            processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
-                                workingDirectory,
-                                commandToRun,
-                                argumentsForCommand
-                            );
-                        }                            
+                        processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
+                            workingDirectory,
+                            commandToRun,
+                            string.Format(argumentsForCommand, replacedSubstitutionParameters.ToArray())
+                        );
                     }
-                //} else {
-                //    if (actionKindRunProcess.ShowProcessWindow) {
-                //        if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
-                //            processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                //                commandToRun,
-                //                argumentsForCommand + " > " + actionKindRunProcess.RedirectToFileName
-                //            );
-                //        } else {
-                //            processExitCode = AinCommandLineHelper.RunProcessWithWindow(
-                //                commandToRun,
-                //                argumentsForCommand
-                //            );
-                //        }
-                //    } else {
-                //        if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
-                //            processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
-                //                commandToRun,
-                //                argumentsForCommand + " > " + actionKindRunProcess.RedirectToFileName
-                //            );
-                //        } else {
-                //            processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
-                //                commandToRun,
-                //                argumentsForCommand
-                //            );
-                //        }
-                //    }                    
-                //}
+                }
+            } else {                
+                string workingDirectory = string.IsNullOrEmpty(actionKindRunProcess.WorkingDirectory) || 
+                    PLUGIN_DIR_VAR.Equals(actionKindRunProcess.WorkingDirectory) ? PluginDirectory : actionKindRunProcess.WorkingDirectory;
+
+                if (actionKindRunProcess.ShowProcessWindow) {
+                    if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
+                        processExitCode = AinCommandLineHelper.RunProcessWithWindow(
+                            workingDirectory,
+                            commandToRun,
+                            argumentsForCommand + " > " + actionKindRunProcess.RedirectToFileName
+                        );
+                    } else {
+                        processExitCode = AinCommandLineHelper.RunProcessWithWindow(
+                            workingDirectory,
+                            commandToRun,
+                            argumentsForCommand
+                        );
+                    }                        
+                } else {
+                    if (actionKindRunProcess.RedirectToFile && !string.IsNullOrEmpty(actionKindRunProcess.RedirectToFileName)) {
+                        processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
+                            workingDirectory,
+                            commandToRun,
+                            argumentsForCommand + " > " + actionKindRunProcess.RedirectToFileName
+                        );
+                    } else {
+                        processExitCode = AinCommandLineHelper.RunProcessWithoutWindow(
+                            workingDirectory,
+                            commandToRun,
+                            argumentsForCommand
+                        );
+                    }                            
+                }
             }
 
             substitutionParamsReplacementDict.Add(PROCESS_EXIT_CODE_VAR, processExitCode.ToString());
@@ -345,8 +313,7 @@ namespace AinDevHelperPluginLibrary {
                                 : actionKindRunProcess.RedirectToFileName;
 
                             if (File.Exists(redirectFilePath)) {
-                                string commandOutput = File.ReadAllText(redirectFilePath);
-                                Console.WriteLine(commandOutput);
+                                string commandOutput = File.ReadAllText(redirectFilePath);                                
                                 commandOutput = commandOutput.Replace("\n", "\r\n");
 
                                 finalSuccessMessage += "\r\n\r\n" + commandOutput;
@@ -368,14 +335,19 @@ namespace AinDevHelperPluginLibrary {
                             : actionKindRunProcess.RedirectToFileName;
 
                         if (File.Exists(redirectFilePath)) {
-                            string commandOutput = File.ReadAllText(redirectFilePath);
-                            Console.WriteLine(commandOutput);
-                            commandOutput = commandOutput.Replace("\n", "\r\n");                           
-                            return new AinDevHelperPluginActionResult(this, noParamsAction, $"Действие '{noParamsAction.Name}' выполнено успешно.\r\n\r\n{commandOutput}");
+                            string commandOutput = File.ReadAllText(redirectFilePath);                            
+                            commandOutput = commandOutput.Replace("\n", "\r\n");
+
+                            string successMessageAndOutput = $"{string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, noParamsAction.Name)}\r\n\r\n{commandOutput}";
+                            return new AinDevHelperPluginActionResult(this, noParamsAction, successMessageAndOutput);
                         }                        
                     }
-                    return new AinDevHelperPluginActionResult(this, noParamsAction, $"Действие '{noParamsAction.Name}' выполнено успешно.", false);
-
+                    return new AinDevHelperPluginActionResult(
+                        this, 
+                        noParamsAction,
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, noParamsAction.Name),
+                        false
+                    );
                 }
             } else {
                 if (noParamsActionDescriptor.ErrorMessage != null) {
@@ -387,73 +359,118 @@ namespace AinDevHelperPluginLibrary {
                         return new AinDevHelperPluginActionResult(this, noParamsAction, noParamsActionDescriptor.ErrorMessage.Message, true);
                     }
                 } else {
-                    return new AinDevHelperPluginActionResult(this, noParamsAction, $"Действие '{noParamsAction.Name}' выполнено неуспешно (код завершения процесса: {processExitCode}).", true);
+                    return new AinDevHelperPluginActionResult(
+                        this, 
+                        noParamsAction,
+                        ActionResultReturnCode.PluginFailedToExecuteAction,
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, noParamsAction.Name, processExitCode),                        
+                        true
+                    );
                 }
             }
         }
 
+        /// <summary>
+        /// [RU] Получает дескриптор действия плагина по имени действия<br/>
+        /// [EN] Gets a plugin action descriptor by action name
+        /// </summary>
+        /// <param name="actionName">[RU] имя действия, для которого требуется получить дескриптор;<br/>[EN] name of the action for which you want to get a handle</param>
+        /// <returns></returns>
         public virtual AinDevHelperPluginActionDescriptor GetPluginActionDescriptorByActionName(string actionName) {
             foreach (var pluginActionDescriptor in PluginDescriptor.Actions) {
                 if (pluginActionDescriptor.Name.Equals(actionName)) {
                     return pluginActionDescriptor;
                 }
+                if (pluginActionDescriptor.LocalizedNames != null && pluginActionDescriptor.LocalizedNames.Count > 0) {
+                    Func<AinDevHelperLocalizedMessage, bool> predicate = localizedName => localizedName.Message != null && localizedName.Message.Equals(actionName);
+                    if (pluginActionDescriptor.LocalizedNames.Any(predicate)) {
+                        return pluginActionDescriptor;
+                    }                    
+                }
             }
             return null;
         }
 
-        public override AinDevHelperPluginActionResult RunAction(AinDevHelperPluginAction actionToRun) {
-            if (actionToRun is AinDevHelperPluginWebLinkAction webLinkAction) {
-                Process proc = Process.Start(webLinkAction.WebLink);
-                if (proc != null) {
-                    proc.WaitForExit();
+        /// <summary>
+        /// [RU] Обработка логики по выполнению действия "Веб-ссылка" для плагина на базе XML-дескриптора<br/>
+        /// [EN] Processing logic for performing the "Web Link" action for a plugin based on an XML descriptor
+        /// </summary>
+        /// <param name="webLinkAction">[RU] Экземпляр действия с типом "Веб-ссылка", который необходимо выполнить;<br/>[EN] An instance of the action with type "Web Link" that you want to execute</param>
+        /// <returns>[RU] результат выполнения действия плагина (положительный или отрицательный, если была ошибка);<br/>[EN] result of the plugin action (positive or negative if there was an error)</returns>
+        public virtual AinDevHelperPluginActionResult RunWebLinkAction(AinDevHelperPluginWebLinkAction webLinkAction) {
+            Process proc = Process.Start(webLinkAction.WebLink);
+            if (proc != null) {
+                proc.WaitForExit();
 
-                    var pluginActionDescriptor = GetPluginActionDescriptorByActionName(actionToRun.Name);
+                var pluginActionDescriptor = GetPluginActionDescriptorByActionName(webLinkAction.Name);
 
-                    Dictionary<string, string> substitutionParamsReplacementDict = new Dictionary<string, string> {
-                        { PLUGIN_ACTION_NAME_VAR, actionToRun.Name },
+                Dictionary<string, string> substitutionParamsReplacementDict = new Dictionary<string, string> {
+                        { PLUGIN_ACTION_NAME_VAR, webLinkAction.Name },
                         { PROCESS_EXIT_CODE_VAR, proc.ExitCode.ToString() }
                     };
 
 
-                    if (proc.ExitCode == 0) {
-                        if (pluginActionDescriptor is AinDevHelperPluginWebLinkActionDescriptor webLinkActionDescriptor && webLinkActionDescriptor.SuccessMessage != null && webLinkActionDescriptor.SuccessMessage.Message != null) {
-                            if (webLinkActionDescriptor.SuccessMessage.SubstitutionParameters != null) {
+                if (proc.ExitCode == 0) {
+                    if (pluginActionDescriptor is AinDevHelperPluginWebLinkActionDescriptor webLinkActionDescriptor && webLinkActionDescriptor.SuccessMessage != null && webLinkActionDescriptor.SuccessMessage.Message != null) {
+                        if (webLinkActionDescriptor.SuccessMessage.SubstitutionParameters != null) {
 
-                                substitutionParamsReplacementDict.Add(PLUGIN_ACTION_WEB_LINK_VAR, webLinkActionDescriptor.WebLink);
+                            substitutionParamsReplacementDict.Add(PLUGIN_ACTION_WEB_LINK_VAR, webLinkActionDescriptor.WebLink);
 
-                                List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(webLinkActionDescriptor.SuccessMessage.SubstitutionParameters, substitutionParamsReplacementDict);
-                                string finalSuccessMessage = string.Format(webLinkActionDescriptor.SuccessMessage.Message, replacedSubstitutionParameters.ToArray());
-                                return new AinDevHelperPluginActionResult(this, actionToRun, finalSuccessMessage, false);
-                            } else {
-                                return new AinDevHelperPluginActionResult(this, actionToRun, webLinkActionDescriptor.SuccessMessage.Message, false);
-                            }                            
+                            List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(webLinkActionDescriptor.SuccessMessage.SubstitutionParameters, substitutionParamsReplacementDict);
+                            string finalSuccessMessage = string.Format(webLinkActionDescriptor.SuccessMessage.Message, replacedSubstitutionParameters.ToArray());
+                            return new AinDevHelperPluginActionResult(this, webLinkAction, finalSuccessMessage, false);
                         } else {
-                            return new AinDevHelperPluginActionResult(this, actionToRun, $"Действие '{actionToRun.Name}' выполнено успешно.", false);
+                            return new AinDevHelperPluginActionResult(this, webLinkAction, webLinkActionDescriptor.SuccessMessage.Message, false);
                         }
                     } else {
-                        if (pluginActionDescriptor is AinDevHelperPluginWebLinkActionDescriptor webLinkActionDescriptor && webLinkActionDescriptor.ErrorMessage != null && webLinkActionDescriptor.ErrorMessage.Message != null) {
-                            if (webLinkActionDescriptor.ErrorMessage.SubstitutionParameters != null) {
-                                List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(webLinkActionDescriptor.ErrorMessage.SubstitutionParameters, substitutionParamsReplacementDict);
-                                string finalErrorMessage = string.Format(webLinkActionDescriptor.ErrorMessage.Message, replacedSubstitutionParameters.ToArray());
-                                return new AinDevHelperPluginActionResult(this, actionToRun, finalErrorMessage, false);
-                            } else {
-                                return new AinDevHelperPluginActionResult(this, actionToRun, webLinkActionDescriptor.ErrorMessage.Message, false);
-                            }
+                        return new AinDevHelperPluginActionResult(
+                            this, 
+                            webLinkAction, 
+                            string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, webLinkAction.Name), 
+                            false
+                        );
+                    }
+                } else {
+                    if (pluginActionDescriptor is AinDevHelperPluginWebLinkActionDescriptor webLinkActionDescriptor && webLinkActionDescriptor.ErrorMessage != null && webLinkActionDescriptor.ErrorMessage.Message != null) {
+                        if (webLinkActionDescriptor.ErrorMessage.SubstitutionParameters != null) {
+                            List<string> replacedSubstitutionParameters = GetReplacedSubstitutionParameters(webLinkActionDescriptor.ErrorMessage.SubstitutionParameters, substitutionParamsReplacementDict);
+                            string finalErrorMessage = string.Format(webLinkActionDescriptor.ErrorMessage.Message, replacedSubstitutionParameters.ToArray());
+                            return new AinDevHelperPluginActionResult(this, webLinkAction, finalErrorMessage, false);
                         } else {
-                            return new AinDevHelperPluginActionResult(this, actionToRun, $"Действие '{actionToRun.Name}' выполнено неуспешно (код завершения процесса: {proc.ExitCode}).", false);
+                            return new AinDevHelperPluginActionResult(this, webLinkAction, webLinkActionDescriptor.ErrorMessage.Message, false);
                         }
-                    }                    
+                    } else {
+                        return new AinDevHelperPluginActionResult(
+                            this, 
+                            webLinkAction, 
+                            ActionResultReturnCode.PluginFailedToExecuteAction, 
+                            string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, webLinkAction.Name, proc.ExitCode), 
+                            false
+                        );
+                    }
                 }
-            } else if (actionToRun is AinDevHelperPluginParameterizedAction parameterizedAction) {
-                return RunParameterizedAction(parameterizedAction);
-            } else if (actionToRun is AinDevHelperPluginAction noParamsAction) {
-                return RunNoParamsAction(noParamsAction);
             }
+            
+            return GetErroneousResponseActionNotRecognized(webLinkAction);
+        }
 
-            if (actionToRun != null) {
-                return GetErroneousResponse(actionToRun, $"Ошибка при выполнении действия плагина. Действие '{actionToRun.Name}' не распознано.");
-            } else {
-                return GetErroneousResponse(actionToRun, "Ошибка при выполнении действия плагина. Действие не распознано.");
+        public override AinDevHelperPluginActionResult RunAction(AinDevHelperPluginAction actionToRun) {
+            try {
+                if (actionToRun is AinDevHelperPluginWebLinkAction webLinkAction) {
+                    return RunWebLinkAction(webLinkAction);
+                } else if (actionToRun is AinDevHelperPluginParameterizedAction parameterizedAction) {
+                    return RunParameterizedAction(parameterizedAction);
+                } else if (actionToRun is AinDevHelperPluginAction noParamsAction) {
+                    return RunNoParamsAction(noParamsAction);
+                }
+
+                if (actionToRun != null) {
+                    return GetErroneousResponse(actionToRun, string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginErrMsgGivenActionNotRecognized, actionToRun.Name));
+                } else {
+                    return GetErroneousResponse(actionToRun, Host.GetCurrentLanguage().DescriptorBasedPluginErrMsgActionNotRecognized);
+                }
+            } catch (Exception exception) {
+                return GetErroneousResponseForException(actionToRun, exception);
             }            
         }
     }

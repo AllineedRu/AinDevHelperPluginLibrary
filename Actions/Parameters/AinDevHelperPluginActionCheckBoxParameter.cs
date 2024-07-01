@@ -15,14 +15,16 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace AinDevHelperPluginLibrary.Actions.Parameters {
-    public class AinDevHelperPluginActionCheckBoxParameter : AinDevHelperPluginActionParameter {        
+    /// <summary>
+    /// [RU] Класс описывает параметр с типом "Флажок" для параметризованного действия плагина<br/>
+    /// [EN] The class describes a parameter with type "Checkbox" for a parameterized plugin action
+    /// </summary>
+    public class AinDevHelperPluginActionCheckBoxParameter : AinDevHelperPluginActionParameter {
+        /// <summary>
+        /// [RU] Свойство возращает или задаёт значение флажка - отмечен он или нет<br/>
+        /// [EN] The property returns or sets the value of the checkbox - whether it is checked or not
+        /// </summary>
         public bool Checked { get; set; }
 
         public AinDevHelperPluginActionCheckBoxParameter(string name, string label) : this(name, label, "", false) {

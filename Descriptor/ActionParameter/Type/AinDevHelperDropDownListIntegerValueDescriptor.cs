@@ -15,14 +15,8 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-using System;
-using System.Xml.Serialization;
-
 namespace AinDevHelperPluginLibrary.Descriptor.ActionParameter.Type {
-    [Serializable]
-    [XmlInclude(typeof(AinDevHelperDropDownListStringValue))]
-    [XmlInclude(typeof(AinDevHelperDropDownListIntegerValue))]    
-    public abstract class AinDevHelperDropDownListValue {
-        public string Name { get; set; }
+    public class AinDevHelperDropDownListIntegerValueDescriptor : AinDevHelperDropDownListValueDescriptor {
+        public int Value { get; set; }
     }
 }

@@ -18,7 +18,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Xml.Serialization;
 
-namespace AinDevHelperPluginLibrary.Descriptor {
+namespace AinDevHelperPluginLibrary.Descriptor.ActionParameter.Type {
     [Serializable]
     public class AinDevHelperPluginActionDirectorySelectionParameterDescriptor : AinDevHelperPluginActionParameterDescriptor {
 
