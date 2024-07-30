@@ -414,9 +414,7 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string MsgTroubleshootingRunActionMethod2 { get; set; } = "2) Убедитесь, что реализованный метод RunAction(AinDevHelperPluginAction actionToRun) плагина не выбрасывает необработанных плагином исключений во время своей работы.";
         public virtual string MsgPluginReportedItHasNoImplementedActions { get; set; } = "Плагин '{0}' сообщил об ошибке (NotImplementedException). Это значит, что плагин пока не имеет реализованных действий.";
         public virtual string MsgPluginCausedUnexpectedError { get; set; } = "Плагин '{0}' сообщил об ошибке (Exception).";
-        //public virtual string MsgErrorDetails { get; set; } = "Детали ошибки:";
 
-        //сообщил об ошибке (NotImplementedException). Это значит, что он не имеет реализованных действий.
         /// <summary>
         /// [RU] Локализация для метки "Название плагина:" на вкладке "Основное"
         /// [EN] Localization for the "Plugin Name:" label on the "Main Info" tab
@@ -751,6 +749,7 @@ namespace AinDevHelperPluginLibrary.Language {
         public virtual string SettingsFormSectionView { get; set; } = "Вид";
         public virtual string SettingsFormSectionTools { get; set; } = "Инструменты";
         public virtual string SettingsFormSectionIDEs { get; set; } = "Среды разработки";
+        public virtual string SettingsFormSectionPluginSettings { get; set; } = "Настройки плагинов";
 
         [Obsolete]
         public virtual string SettingsFormErrorDialogTitle { get; set; } = "Ошибка";
