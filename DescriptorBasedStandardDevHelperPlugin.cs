@@ -113,7 +113,7 @@ namespace AinDevHelperPluginLibrary {
             int processExitCode;
 
             Dictionary<string, string> substitutionParamsReplacementDict = new Dictionary<string, string> {
-                        { PLUGIN_ACTION_NAME_VAR, parameterizedAction.Name }                        
+                        { PLUGIN_ACTION_NAME_VAR, parameterizedAction.GetLocalizedName() }                        
                     };
 
             foreach (var parameter in parameterizedAction.Parameters) {
@@ -165,7 +165,7 @@ namespace AinDevHelperPluginLibrary {
                     return new AinDevHelperPluginActionResult(
                         this, 
                         parameterizedAction,
-                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, parameterizedAction.Name),                         
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, parameterizedAction.GetLocalizedName()),                         
                         false
                     );
                 }                
@@ -183,9 +183,9 @@ namespace AinDevHelperPluginLibrary {
                         this, 
                         parameterizedAction, 
                         ActionResultReturnCode.PluginFailedToExecuteAction, 
-                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, parameterizedAction.Name, processExitCode), 
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, parameterizedAction.GetLocalizedName(), processExitCode), 
                         true
-                    );                    
+                    );
                 }
             }
         }
@@ -223,7 +223,7 @@ namespace AinDevHelperPluginLibrary {
             int processExitCode;
 
             Dictionary<string, string> substitutionParamsReplacementDict = new Dictionary<string, string> {
-                        { PLUGIN_ACTION_NAME_VAR, noParamsAction.Name }
+                        { PLUGIN_ACTION_NAME_VAR, noParamsAction.GetLocalizedName() }
                     };
 
             if (actionKindRunProcess.SubstitutionParameters != null && actionKindRunProcess.SubstitutionParameters.Count > 0) {                
@@ -336,14 +336,14 @@ namespace AinDevHelperPluginLibrary {
                             string commandOutput = File.ReadAllText(redirectFilePath);                            
                             commandOutput = commandOutput.Replace("\n", "\r\n");
 
-                            string successMessageAndOutput = $"{string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, noParamsAction.Name)}\r\n\r\n{commandOutput}";
+                            string successMessageAndOutput = $"{string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, noParamsAction.GetLocalizedName())}\r\n\r\n{commandOutput}";
                             return new AinDevHelperPluginActionResult(this, noParamsAction, successMessageAndOutput);
                         }                        
                     }
                     return new AinDevHelperPluginActionResult(
                         this, 
                         noParamsAction,
-                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, noParamsAction.Name),
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, noParamsAction.GetLocalizedName()),
                         false
                     );
                 }
@@ -361,7 +361,7 @@ namespace AinDevHelperPluginLibrary {
                         this, 
                         noParamsAction,
                         ActionResultReturnCode.PluginFailedToExecuteAction,
-                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, noParamsAction.Name, processExitCode),                        
+                        string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, noParamsAction.GetLocalizedName(), processExitCode),                        
                         true
                     );
                 }
@@ -403,7 +403,7 @@ namespace AinDevHelperPluginLibrary {
                 var pluginActionDescriptor = GetPluginActionDescriptorByActionName(webLinkAction.Name);
 
                 Dictionary<string, string> substitutionParamsReplacementDict = new Dictionary<string, string> {
-                        { PLUGIN_ACTION_NAME_VAR, webLinkAction.Name },
+                        { PLUGIN_ACTION_NAME_VAR, webLinkAction.GetLocalizedName() },
                         { PROCESS_EXIT_CODE_VAR, proc.ExitCode.ToString() }
                     };
 
@@ -424,7 +424,7 @@ namespace AinDevHelperPluginLibrary {
                         return new AinDevHelperPluginActionResult(
                             this, 
                             webLinkAction, 
-                            string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, webLinkAction.Name), 
+                            string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionCompletedSuccessfully, webLinkAction.GetLocalizedName()), 
                             false
                         );
                     }
@@ -442,7 +442,7 @@ namespace AinDevHelperPluginLibrary {
                             this, 
                             webLinkAction, 
                             ActionResultReturnCode.PluginFailedToExecuteAction, 
-                            string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, webLinkAction.Name, proc.ExitCode), 
+                            string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginMsgGivenActionFailedWithProcExitCode, webLinkAction.GetLocalizedName(), proc.ExitCode), 
                             false
                         );
                     }
@@ -463,7 +463,7 @@ namespace AinDevHelperPluginLibrary {
                 }
 
                 if (actionToRun != null) {
-                    return GetErroneousResponse(actionToRun, string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginErrMsgGivenActionNotRecognized, actionToRun.Name));
+                    return GetErroneousResponse(actionToRun, string.Format(Host.GetCurrentLanguage().DescriptorBasedPluginErrMsgGivenActionNotRecognized, actionToRun.GetLocalizedName()));
                 } else {
                     return GetErroneousResponse(actionToRun, Host.GetCurrentLanguage().DescriptorBasedPluginErrMsgActionNotRecognized);
                 }
