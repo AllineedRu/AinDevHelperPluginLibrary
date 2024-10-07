@@ -16,6 +16,7 @@
 using System.IO;
 using System.Collections.Generic;
 using static AinDevHelperPluginLibrary.Language.AinDevHelperLanguageCodeConstants;
+using AinDevHelperPluginLibrary.Themes;
 
 namespace AinDevHelperPluginLibrary.Global {
     /// <summary>
@@ -47,6 +48,14 @@ namespace AinDevHelperPluginLibrary.Global {
             set {
                 appStartupPath = value;
                 PluginsDirectoryFullPath = Path.Combine(appStartupPath, PluginsDirectoryName);
+            } 
+        }
+
+        public AinDevHelperTheme CurrentTheme { get; set; }
+
+        public bool IsCurrentThemeSelected { 
+            get {
+                return CurrentTheme != null;
             } 
         }
 
